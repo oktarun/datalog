@@ -3,3 +3,5 @@ node_modules/
 
 # Ignore any directory or file named "tmp"
 tmp/
+
+.vscode/extensions/
