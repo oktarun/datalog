@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            display: block;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form id="uploadform" action="/workerprofile">
+        <input type="text" id="name" placeholder="Enter worker name here">
+        <input type="file" name="image" id="imageinput">
+        <input type="text" name="father" id="father" placeholder="father's name">
+        <input type="date" name="age" id="age">
+        <button type="submit">Upload</button>
+    </form>
+    <script>
+        const form = document.getElementById('uploadform');
+        const input = document.getElementById('imageinput');
+
+
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const father = document.getElementById('father').value;
+            const age = document.getElementById('age').value;
+            const file = input.files[0];
+            console.log(event, file, name)
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+
+
+
+            reader.onloadend = () => {
+                const imagedata = reader.result;
+
+                fetch('/workerprofile', {
+                    method: 'Post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ imagedata, name, father, age })
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result);
+                        // var image = document.createElement("img")
+                        // image.setAttribute("class", "image")
+                        // image.setAttribute("src", result)
+                        // image_box.append(image)
+                        try {
+                            navigator.clipboard.writeText(result);
+                            console.log('Content copied to clipboard');
+                        } catch (err) {
+                            console.error('Failed to copy: ', err);
+                        }
+
+                    })
+                    .catch(error => console.error(error));
+            }
+
+        })
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<header>
+    <!-- <link rel = "icon" href = 
+    "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200X200.png"
+            type = "image/x-icon">  -->
+
+    <nav>
+        <h1><a href="/">NFIGHRBHU</a></h1>
+        <!-- <ul>
+            <li><a href="/authors"><Main>Authors</Main></a></li>
+            <li><a href="/authors/new"><Main>Add Author</Main></a></li>
+        </ul> -->
+        <ul id="">
+
+        </ul>
+        <ul id="users">
+            <a class="list" href="#"><img id="img" class="list" alt=""> <span id="user"></span></a>
+            <li id="log" class="list"></li>
+        </ul>
+    </nav>
+    
+</header>
+<style>
+    * {
+        background-color: black;
+        color: white;
+    }
+
+    a {
+        display: flex;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        background-color: rgb(0, 0, 0);
+        padding: 0 10px;
+        justify-content: space-evenly;
+        align-items: center;
+        /* position: relative; */
+        height: 50px;
+
+
+    }
+
+    #img {
+        height: 20px;
+        width: 20px;
+        border: 1px solid rgb(126, 102, 102);
+        border-radius: 100%;
+        display: inline;
+
+    }
+
+
+    h1 {
+        flex: 1;
+        text-align: center;
+        /* pointer-events: none; */
+    }
+
+    ul {
+        flex: 2;
+        display: flex;
+        justify-content: end;
+
+    }
+
+    .list {
+        margin: 0 10%;
+        list-style-type: none;
+        font-size: 20px;
+        display: flex;
+    }
+
+    a {
+        display: block;
+        color: rgb(252, 218, 218);
+        text-decoration: none;
+        transition: color .2s ease-in-out;
+
+    }
+
+    a:hover {
+        color: rgb(219, 250, 199);
+    }
+
+
+    .nodisplay {
+        display: none;
+    }
+</style>
+
+<!-- <script>
+
+
+
+    fetch("/user")
+
+        // Converting received data to JSON
+        .then(response => response.json())
+        .then(json => {
+            if (json.status === 200) {
+
+
+                document.getElementById("user").innerHTML = json.name;
+                // console.log(json.data)
+
+
+
+                a = document.createElement("a");
+                a.setAttribute("href", "/user/logout");
+                a.innerHTML = "LogOut"
+                document.getElementById("log").append(a)
+                document.getElementById("img").setAttribute("src", json.data)
+
+
+
+            }
+            else {
+                document.getElementById("user").innerHTML = "rjgnngr";
+
+                a = document.createElement("a");
+                a.setAttribute("href", "/auth");
+                a.innerHTML = "LogIn"
+                document.getElementById("log").append(a)
+                document.getElementById("img").setAttribute("src", "https://th.bing.com/th/id/OIP.5idaxMcCXm0yAHuEMyA7gQHaHa?pid=ImgDet&rs=1")
+
+            }
+
+
+
+
+
+
+        });
+</script> -->

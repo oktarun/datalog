@@ -1,0 +1,476 @@
+function adjustCellWidthTargetOnly(targetCell) {
+            // console.log("adjustCellWidthTargetOnly");
+            // gridTable = document.getElementById("gridTable")
+            // var yValue = 0;                                          // first cell of y-axis
+            // var xValue = parseInt(inputCell.getAttribute("axis-x")); // Get x-axis value of the changed cell
+            // var maxWidth = parseInt(gridTable.rows[0].cells[xValue-1].getAttribute("max-width")); // Get stored maximum width
+
+            // Get the current input width
+            // var inputWidth = inputCell.clientWidth;
+            // inputCell.style.width = (inputCell.scrollWidth) + 'px';
+            // console.log( inputCell.scrollWidth, inputCell.clientWidth, inputCell.style.width)  
+
+
+            // Calculate the total content width of all cells in the last row
+            var totalWidth = 0;
+            var lastRow = gridTable.rows[numCols - 1];
+            for (var x = 0; x < numRows; x++) {
+                var inputCell = lastRow.cells[x];
+                totalWidth += inputCell.childNodes[0].offsetWidth + targetCell.offsetWidth - lastRow.cells[x].offsetWidth;
+                console.log(inputCell.childNodes[0].offsetWidth, totalWidth, lastRow.offsetWidth, gridTable.offsetWidth, targetCell.offsetWidth - lastRow.cells[x].offsetWidth)
+            }
+
+            // Set the table width to accommodate the total content width
+            // gridTable.style.width = totalWidth + "px";
+
+
+            // Only update maxWidth if the current input width is greater                  |
+            // if (inputWidth > maxWidth) {                                                |
+            //                                                                             |    // no need for this, once one cell will grow other will automaticaly
+            //     // Update maxWidth                                                      |
+            //     maxWidth = inputWidth;                                                  |
+
+            //     // Set the stored maximum width attribute to the first cell             |
+            //     gridTable.rows[0].cells[xValue-1].setAttribute("max-width", maxWidth);  |
+
+            //     // Set the same maximum width for all cells in the column               |
+            //     for (var x = 1; x <= numRows; x++) {                                    |
+            //         gridTable.rows[yValue - 1].cells[x - 1].style.width = maxWidth + "px";
+            //     }
+            // }
+        }
+
+
+        // input.addEventListener("kuchbitoh", function (event) {
+            //     var input = event.target;
+
+            //     // to filter out blank inputs
+            //     var newValue = input.value;
+            //     if (newValue.trim() === "") {
+            //         console.log("blank input");
+            //         return;
+            //     }
+            //     console.log(input)
+
+            //     var xValue = input.getAttribute("axis-x");
+            //     var yValue = input.getAttribute("axis-y");
+            //     input.style.width = (input.scrollWidth) + 'px';
+
+            //     // adjustCellWidthTargetOnly(input); // Adjust cell widths within the same column (y-axis) as the changed cell
+
+            //     //  post req  using fetch to save data
+
+            //     fetch('/table', {
+            //         method: 'Post',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify({ xValue, yValue, input: input.value, doc_id: window.doc_id })
+            //     })
+            //         .then(response => response.json())
+            //         .then(result => {
+            //             console.log(result);
+            //             // const minimizeButton = document.getElementById('minimizeButton');
+            //             // minimizeButton.click();
+            //             // location.reload();
+
+            //         })
+            //         .catch(error => console.error(error));
+
+
+
+
+            //     console.log("Changed input at: " + xValue + "," + yValue + " New value: " + input.value);
+            // });
+
+
+
+
+            // adder used later 
+
+            // Function to add a new x-axis to all y-axes
+        function addXAxis() {
+            numRows++; // Increase the number of rows (x-axis)
+            for (var y = 1; y <= numCols; y++) {
+                var cell = createInputCell(numRows, y);
+                var row = gridTable.rows[y - 1];
+                row.appendChild(cell);
+            }
+        }
+
+        // Function to add a new y-axis to all x-axes
+        function addYAxis() {
+            numCols++; // Increase the number of columns (y-axis)
+            var row = document.createElement("tr");
+            for (var x = 1; x <= numRows; x++) {
+                var cell = createInputCell(x, numCols);
+                row.appendChild(cell);
+            }
+            gridTable.appendChild(row);
+        }
+
+
+
+            function fitCol(Table) {
+
+
+
+        var max = 0;
+        for (var i = 0; i < 100; i++) {
+            if (Table[i][0] == null) {
+                if (max < 5) {
+                    return 5;
+                }
+                else {
+                    return max;
+                }
+            }
+            else {
+                max++;
+            }
+        }
+
+    }
+
+
+
+
+    // to set diaahdi
+
+     // console.log(req.body)
+    const { value, doc_id } = req.body; // yValue is the index of the row
+    Table.findById(doc_id, function (err, doc) {
+        
+        console.log(doc.name[0]);
+        
+        if (err) {
+            console.log(err);
+        }
+        console.log("no error")
+        
+        if (typeof(doc.name[0][3])=== 'number') {
+            res.end("already set");
+            console.log("already set")
+            
+        }
+        
+        else{
+            console.log("type of "+typeof(doc.name[0][3]));
+            
+            
+            
+            doc.name[0][3] = parseInt(value);
+            console.log(doc.name[0]);
+            console.log(typeof(doc.name[0][3]));
+            
+            
+            
+            doc.save(function (err, updatedDoc) {
+                if (err) {
+                    console.log(err)
+                    res.end()
+                } else {
+                    // console.log(updatedDoc);
+                    console.log("updated succesfully")
+                    
+                }
+            });
+        }
+        });
+
+
+        // using findvyidandupdate    to set dihaadi
+         const { value, doc_id } = req.body;
+
+    // Convert the value to a number
+    const parsedValue = parseInt(value);
+
+    // Define the update operation with a conditional update
+    const updateOperation = {
+        $set: {
+            'name.0.3': {
+                $cond: {
+                    if: { $eq: [{ $type: '$name.0.3' }, 'number'] }, // Check if it's already a number
+                    then: '$name.0.3', // Keep the current value
+                    else: parsedValue, // Update with the parsed value
+                },
+            },
+        },
+    };
+
+    Table.findByIdAndUpdate(
+        doc_id, // Specify the document to update by _id
+        updateOperation,
+        { new: true }, // This option returns the modified document
+        (err, updatedDoc) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({ error: "Database error" });
+            }
+
+            if (!updatedDoc) {
+                return res.status(404).json({ error: "Document not found" });
+            }
+
+            console.log("Document updated successfully");
+            console.log(updatedDoc);
+
+            return res.json(updatedDoc);
+        }
+    );
+
+
+    table.aggregate() was what
+
+
+// from acces.ejs
+   <% var uSers = []; %>
+    <div id="addMainToUser">
+        <% data.forEach(function(user) { %>
+            <% if (user.userLevel !== "admin") { %>
+                <% uSers.push({ id: user._id, main: user.main }); %>
+                <div id="userbox">
+                    <h1><%= user._id %></h1>
+                    <h3><%= user.name %></h3>
+                    <p><%= user.mobileNo %></p>
+                    <p><%= user.psd %></p>
+                    <p><%= user.userLevel %></p>
+                    <div class="permissionbox" id="<%= user._id %>" onclick="arrangeMain(this)">Arrange</div>
+                    <button onclick="updateMain('<%= user._id %>')">Click</button>
+                </div>
+            <% } %>
+        <% }); %>
+        <% console.log(uSers); %>
+    </div>
+   // from js of it
+    // @ts-ignore
+    // ignor error checking for next linelin
+    var uSers = <%- JSON.stringify(uSers) %>;
+
+    // no async await ejs of access
+
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #userbox {
+        border: 1px rgb(235, 231, 231) solid;
+        margin: 10px 0px;
+    }
+
+    #addMainToUser {
+
+        margin-top: 30px;
+    }
+    button{
+        display: none;
+    }
+</style>
+
+<body>
+ 
+  
+    <hr>
+    <br>
+    <hr>
+
+    <div id="addMainToUser"></div>
+
+</body>
+<script>
+    var uSers = [];
+
+   
+    
+ 
+
+    document.getElementById('addMainToUser');
+
+    fetch('/user/accounts', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res.json())
+        .then(data => {
+
+            console.log(data);
+
+            let html = '';
+
+            data.forEach((user) => {
+                console.log("user tak")
+                if (user.userLevel != "admin") {
+                    console.log(uSers)
+                    uSers.push({ id: user._id, main: user.main });
+
+
+
+
+
+                    html += `
+                    <div id="userbox" >
+                        <h1>${user._id}</h1>
+                        <h3>${user.name}</h3>
+                        <p>${user.mobileNo}</p>
+                        <p>${user.psd}</p>
+                        <p>${user.userLevel}</p>
+                        <div class="permissionbox" id="${user._id}" onclick="arrangeMain(this)">Arrange</div>
+                        <button onclick="updateMain('${user._id}')">Vlick</button>
+                        
+    
+                    </div>
+                `;
+                    // user.main
+                }
+
+
+            });
+
+            document.getElementById('addMainToUser').innerHTML = html;
+
+        })
+
+    console.log("second start")
+
+    fetch('/main/data', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(res => res.json())
+        .then(data => {
+            window.mainData = data;
+
+            console.log(data);
+
+            let mainer = '';
+            maincounter = 0;
+            data.forEach((main) => {
+                console.log(main[0])
+
+                mainer += `
+               
+                 <input type="checkbox" onclick="addMain(this)" id="c${maincounter}" >${main[0]}<br>
+            `;
+                maincounter++;
+            });
+            window.mainer = mainer;
+
+            // document.getElementById('addMainToUser').innerHTML = html;
+            //    console.log("what ")
+            //     document.querySelectorAll(".permissionbox").forEach((box) => {
+            //         box.innerHTML = mainer;
+            //         console.log(box)
+            //     })
+
+        })
+        .catch(err => console.log(err));
+
+
+
+    function arrangeMain(e) {
+        if(e.innerHTML !="Arrange"){
+            return;
+
+        }
+        e.parentElement.querySelector("button").style.display = "block";
+
+
+        console.log(e.id);
+        var user = uSers.find(user => user.id === e.id);
+
+        e.innerHTML = window.mainer;
+
+        maincount = 0;
+
+        user.main.forEach((mai) => {
+            if (mai) {          // if false doesnt run and if data run
+                console.log(mai)
+
+                e.querySelector(`#c${maincount}`).checked = true;
+            }
+
+
+
+            maincount++;
+        })
+
+
+
+
+    };
+
+
+
+    function addMain(e) {
+        console.log(e.parentElement.id, e.id, e.checked ? 1 : 0);
+        idPosition = e.id.slice(1);
+        console.log(parseInt(idPosition))
+
+        var user = uSers.find(user => user.id === e.parentElement.id);
+
+
+        // Check if the user.main array is long enough to accommodate the given position
+        if (user.main.length <= idPosition) {
+            // If not, expand the array with null values up to the desired position
+            while (user.main.length <= idPosition) {
+                user.main.push(null);
+            }
+        }
+        // Update the value in the array based on the checkbox's checked status
+        fdata = e.checked ? window.mainData[idPosition]: false;
+        user.main[idPosition] = fdata;
+
+        // Now the user.main array has been updated
+        console.log(user.main, fdata);
+
+
+
+
+
+        // console.log(e.checked)
+
+        // store the pre value and clciked value to array and then after submit send it to server to create a own main for each user 
+
+    }
+
+
+    function updateMain(userId) {
+
+        var user = uSers.find(user => user.id === userId);
+        console.log(user)
+        // const filteredArray = user.main.filter(value => value !== false);
+        // user.main = filteredArray;
+        // console.lgo(user)
+
+       
+
+        fetch('/user/_main', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({user})
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => console.log(err));
+
+        
+    }
+
+
+</script>
+
+
+</html> 

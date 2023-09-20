@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            background-color: black;
+            color: whitesmoke;
+        }
+
+
+        .container {
+            display: flex;
+            overflow-x: auto;
+            /* Enable horizontal scrolling */
+            width: 100%;
+            /* Ensure the container takes up the full width of its parent */
+            max-width: 100%;
+            /* Prevent content from overflowing horizontally */
+            white-space: nowrap;
+            /* Keep items in a single line */
+            /* Hide the scroll bar */
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* Internet Explorer and Edge */
+        }
+
+        .container::-webkit-scrollbar {
+            display: none;
+            /* Hide the scroll bar in Webkit browsers (Chrome, Safari, etc.) */
+        }
+
+        .item {
+            flex: 0 0 auto;
+            /* Don't grow or shrink items */
+            width: 100px;
+            /* Set the width of each item */
+            height: 50px;
+            margin-right: 10px;
+            /* Add space between items */
+            background-color: rgb(29, 27, 27);
+            border: 1px solid gray;
+            display: inline-block;
+            /* Ensure items stay inline */
+        }
+
+        .item1 {
+            flex: 0 0 auto;
+            /* Don't grow or shrink items */
+            width: 100px;
+            /* Set the width of each item */
+            height: 50px;
+            margin-right: 10px;
+            /* Add space between items */
+            background-color: rgb(0, 0, 0);
+            border: 1px solid gray;
+            display: inline-block;
+            /* Ensure items stay inline */
+        }
+
+        .itemlast:nth-child(1) {
+            order: 2;
+            /* Move the first item to the end */
+        }
+
+        .item1 {
+            order: 2;
+            /* Move the first item to the end */
+        }
+
+
+        /* Add this CSS to style the overlay */
+        /* For Adder*/
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent black overlay */
+            z-index: 1000;
+            /* Ensure the overlay appears above other elements */
+            display: none;
+            /* Hide the overlay by default */
+        }
+
+        .overlay-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 25%;
+            width: 25%;
+            /* transform: translate(-50%, -50%); */
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            /* Ensure the content appears above the overlay */
+
+        }
+
+        #minimizeButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #f0f0f0;
+            border: none;
+            /* border-radius: 5px;
+            padding: 50px 10px; */
+            /* margin: 20px; */
+            cursor: pointer;
+        }
+
+        /* Css for table*/
+        .grid-container {
+            width: calc(100%-5);
+            /* Set a fixed width for the container */
+            overflow: auto;
+            /* Allow scrolling if content overflows */
+            border: 1px solid black;
+
+        }
+
+        .grid-container::-webkit-scrollbar {
+            display: none;
+            /* Hide the scroll bar in Webkit browsers (Chrome, Safari, etc.) */
+        }
+
+        #gridtable {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid black;
+            overflow-x: auto;
+            /* Enable horizontal scrolling */
+            width: max-content;
+            white-space: nowrap;
+            /* Prevent line breaks within cells */
+            border: 1px solid gray;
+            background-color: bisque;
+        }
+
+
+        /* worker table  */
+        .workerTable tr {
+            height: 45px;
+            display: flex;
+            flex-direction: row;
+            /* or column, depending on your layout */
+            margin: 10px 0;
+            border: #b60000 solid .5px;
+        }
+
+        .workerTable tr td {
+            position: relative;
+            height: 100%;
+            /* border: 1px solid gray; */
+            margin: 0 5px;
+            width: 150px;
+        }
+
+        .workerTable tr td input {
+            min-width: 100%;
+            width: 100%;
+            /* width: calc(100% - 10px); */
+            /* Adjust for cell padding */
+            height: 100%;
+            box-sizing: border-box;
+            white-space: nowrap;
+            text-align: center;
+            border: none;
+            /* Remove border to avoid extra width */
+        }
+
+        /* reasonTable */
+
+
+        .reasonTable tr {
+            /* height: 45px; */
+            min-height: 45px;
+            /* max-height: max-content; */
+            /* height: max-content; */
+            display: flex;
+            flex-direction: row;
+            /* or column, depending on your layout */
+            margin: 10px 0;
+            border: #b60000 solid .5px;
+        }
+
+        .reasonTable tr td {
+            position: relative;
+            height: inherit;
+            border: 1px solid gray;
+            margin: 0 5px;
+            overflow: auto;
+            width: 150px;
+
+        }
+
+        .reasonTable tr td input {
+            width: 100%;
+            /* width: max-content; */
+            /* width: calc(100% - 10px); */
+            /* Adjust for cell padding */
+            /* min-height: max-content; */
+            height: 100%;
+            /* box-sizing: border-box; */
+            /* white-space: nowrap; */
+            text-align: center;
+            border: none;
+            /* overflow-x: auto;
+            overflow-y: auto; */
+            /* Remove border to avoid extra width */
+
+            /* Allow the input to grow in height */
+
+
+        }
+
+        .reasonTable tr td textarea {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            /* width: max-content; */
+            /* width: calc(100% - 10px); */
+            /* Adjust for cell padding */
+            /* min-height: max-content; */
+            /* height: 100%; */
+            box-sizing: border-box;
+            /* white-space: nowrap; */
+            text-align: center;
+            justify-content: center;
+            border: none;
+            /* overflow-x: auto;
+            overflow-y: auto; */
+            /* Remove border to avoid extra width */
+            resize: none;
+            /* Allow the input to grow in height */
+            /* height: 200px; */
+            padding: 5px 15px 5px 5px;
+            font-size: large;
+            /* max-height: 300px; */
+        }
+
+
+
+
+
+
+
+        /* for svg + icon */
+        #plusIcon {
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+
+
+
+
+        /* for reccomender */
+        /* Style for the recommendations container */
+        #recommendations-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        /* Style for each recommendation box */
+        .recommendation-box {
+            width: 300px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 10px;
+            display: flex;
+        }
+
+        /* Style for the user image */
+        .recommendation-box img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 50%;
+            margin-right: 10px;
+            pointer-events: none;
+        }
+
+        /* Style for the user information (name, age, father name) */
+        .worker-info {
+            flex-grow: 1;
+            pointer-events: none;
+        }
+
+        /* Style for user name and age */
+        .worker-name {
+            font-weight: bold;
+            pointer-events: none;
+        }
+
+        .worker-age {
+            font-weight: bold;
+            pointer-events: none;
+        }
+
+        /* Style for user father name */
+        .worker-father {
+            color: #777;
+            pointer-events: none;
+        }
+
+        #switch-circle {
+            pointer-events: none;
+
+        }
+
+        #switch>rect {
+            pointer-events: none;
+        }
+
+        /* for dihaadi */
+        #dihaadi {
+            width: 100%;
+            height: 30px;
+
+        }
+
+        #dihaadi>input {
+            /* margin-right: 0px; */
+            width: 25%;
+            height: 100%;
+            position: relative;
+            /* Position the input absolutely */
+            right: 0;
+            /* Align the input to the right */
+
+        }
+
+
+
+        /* for pay */
+        .pay,
+        .pay>div {
+            height: 100%;
+            width: 50px;
+            display: flex;
+
+            box-sizing: content-box;
+            box-sizing: border-box;
+            background-color: #b60000;
+            color: whitesmoke;
+            /* Add this line */
+            /* border: #4cdd88 .5px solid; */
+
+            align-items: center;
+            justify-content: center;
+
+        }
+
+
+        .pay>div {
+            pointer-events: none;
+
+
+        }
+
+        .pay {
+            margin: 0 0;
+            /* border-bottom: 3px solid rgb(226, 226, 34);
+            border-top: 3px solid rgb(226, 226, 34);
+            cursor: pointer; */
+        }
+
+
+
+
+        td>svg,
+        .atten {
+            /* width: 100%; */
+            width: 60px;
+            height: 100%;
+
+        }
+
+
+
+
+
+
+        /*  pay window */
+
+
+        #payWindow {
+            /* position: relative; */
+            /* top: 500px; */
+            margin-bottom: 200px;
+            height: 201px;
+            /* width: 100%; */
+            display: none;
+
+        }
+
+        #pay-worker-profile {
+            display: flex;
+            flex-direction: row;
+            /* align-items: center; */
+            width: 100%;
+            height: 100%;
+            /* margin-bottom: 100px; */
+
+
+        }
+
+        #pay-worker-photo {
+
+
+            flex: 1;
+            /* text-align: center; */
+
+            width: 50%;
+            /* Set the desired width for your div */
+            height: 200px;
+            /* Set the desired height for your div */
+            /* background-image: url('your-image.jpg'); */
+            /* Replace 'your-image.jpg' with the path to your image */
+            background-size: cover;
+            /* This will scale the image to cover the entire div while maintaining its aspect ratio */
+            background-position: center;
+            /* This centers the background image within the div */
+
+            border: white 1px solid;
+
+
+        }
+
+        #pay-worker-info {
+
+            flex: 2;
+            /* padding: 10px; */
+            height: 100%;
+
+        }
+
+        #pay-worker-info>p {
+
+            margin: auto 0;
+
+        }
+
+        /* #pay-worker-image{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        } */
+
+
+        /* pay form */
+
+        #pay-form {
+            width: 100%;
+        }
+
+        #pay-form>input {
+            width: 100%;
+            height: 200px;
+            font-size: 100px;
+
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            appearance: none;
+
+        }
+
+        #pay-amount {
+            text-align: center;
+
+        }
+
+        /* pay control */
+
+
+        .pay-control {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            height: 75px;
+            /* border: 1px solid red; */
+        }
+
+        .pay-control>.controller {
+            width: 45%;
+            height: 100%;
+            border: 1px solid red;
+
+
+            /* for centering text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+
+
+        }
+
+
+        .green {
+            background-color: green;
+        }
+
+        .green:hover {
+            background-color: rgb(9, 185, 9);
+        }
+
+        .grey {
+            background-color: grey;
+            pointer-events: none;
+        }
+
+        /* reason adder */
+
+        #reasonAdder {
+            width: 100%;
+            height: fit-content;
+            border: 1px solid rgb(153, 255, 19);
+            /* display: flex; */
+            display: none;
+            flex-direction: column;
+            /* justify-content: space-around; */
+            /* align-items: center; */
+        }
+
+        #reasonDate {
+            width: 100%;
+            height: 75px;
+            border: 1px solid rgba(168, 0, 0, 0.567);
+            font-size: larger;
+            text-align: center;
+
+
+
+        }
+
+        #reasonEssents {
+            width: 100%;
+            height: 250px;
+            border: 1.5px solid rgb(255, 255, 255);
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+
+
+        #reasonEssents>span {
+
+            height: 100%;
+            border: 1px solid rgb(255, 255, 255);
+        }
+
+        #reasonEssents>#reasonReason {
+            width: 60%;
+
+            font-size: medium;
+
+            text-align: justify;
+
+
+
+        }
+
+        #reasonReason>textarea {
+            width: 100%;
+            height: inherit;
+
+            font-size: inherit;
+
+            text-align: inherit;
+            resize: none;
+            box-sizing: border-box;
+            
+            padding: 20px 0 0 0;
+
+        }
+
+        #reasonEssents>#reasonAmount {
+            width: 40%;
+
+            font-size: larger;
+
+            text-align: center;
+
+
+
+        }
+
+        #reasonAmount>input {
+            width: 100%;
+            height: calc(100% - 4px);
+
+            font-size: inherit;
+
+            text-align: inherit;
+
+
+        }
+
+
+
+
+        #reasonController {
+            width: 100%;
+            height: 75px;
+            border: 1px solid rgb(255, 255, 255);
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+
+        }
+
+        #reasonController>button {
+            width: 50%;
+            height: 100%;
+
+            border: 1px solid rgb(255, 255, 255);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+        }
+
+        #reasonCancel {
+            background-color: rgba(255, 8, 8, 0.381);
+
+        }
+
+        #reasonCancel:hover {
+            background-color: rgba(255, 51, 51, 0.418);
+        }
+
+        .reasonHeader>td>* {
+            font-size: small;
+        }
+
+        /* #reasonSave {
+            background-color: rgba(8, 255, 8, 0.418);
+
+        }
+
+        #reasonSave:hover {
+            background-color: rgba(21, 246, 21, 0.8);
+
+        } */
+
+        /* #kyhua{
+            width: 100%;
+            height: 100px;
+        } */
+    </style>
+</head>
+
+<body>
+
+    <!-- top two  -->
+    <div class="container" id="gram-list">
+        <div class="item itemlast" id="nest" onclick="onNesta()">
+            <div id="plusIcon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 13h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" />
+                </svg>
+            </div>
+        </div>
+
+    </div>
+    <div class="container" id="wdfk"></div>
+
+
+    <!-- table shit -->
+
+    <div class="grid-container">
+        <div id="dihaad"><input id="dihaadi" type="num" value="" placeholder="Please add dihaadi"></div>
+        <table id="gridTable">
+            <!-- Your table rows and cells go here -->
+        </table>
+    </div>
+
+
+
+    <button id="addToTable">Add Worker</button>
+
+
+    <!-- payment shit  -->
+
+    <div class="" id="payWindow">
+        <div id="pay-worker-profile">
+            <div id="pay-worker-photo">
+                <!-- <img src="your-photo-url.jpg" alt="Profile Photo" id="pay-worker-image"> -->
+            </div>
+            <div id="pay-worker-info">
+                <p><strong>Name:</strong> <span></span></p>
+                <!--     // pay html -->
+                <p><strong>Father Name:</strong> <span></span></p>
+            </div>
+        </div>
+        <hr>
+
+
+
+        <div id="pay-form">
+            <input type="number" id="pay-amount">
+
+
+
+            <div class="pay-control">
+
+                <span class="controller"> Cancel </span>
+
+                <span class="controller grey" id="pay-it"> Pay </span>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+
+
+    <!-- reason adder -->
+
+    <div id="reasonAdder">
+        <span id="reasonDate"></span>
+        <span id="reasonEssents">
+            <span id="reasonReason"><textArea type="text" id="reasonText"></textarea></span>
+            <span id="reasonAmount"><input type="number"></span>
+        </span>
+        <span id="reasonController">
+            <button id="reasonCancel">Cancel</button><button id="reasonSave" class="grey">Save</button>
+
+        </span>
+    </div>
+
+    <!-- <input id="kyhua"> -->
+
+</body>
+
+
+<!-- Add this div at the end of your body -->
+<div id="overlay" class="overlay" style="display: none;"></div>
+
+</body>
+<script>
+
+
+
+
+    //  payPop up
+    function payPop(event) {
+
+        var clickedItem = event.target;
+        var yValue = clickedItem.getAttribute("axis-y");
+        console.log(event, yValue);
+        worker_id = clickedItem.parentNode.getAttribute("worker-id");
+        console.log(worker_id);
+
+        // get worker profile and show it here with name fathers name photos
+        // send req to get worker profile
+        fetch('/workerprofile/profile' + worker_id)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse response body as JSON
+            })
+            .then(worker => {
+                // Handle the retrieved data here
+                console.log(worker);
+
+                // then make rough payment frontend and payment button
+                creatingPaymentPage(worker, yValue);
+
+                // Create a box for worker detail and amount
+
+
+
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+
+    };
+
+    function creatingPaymentPage(worker, yValue) {
+        paywindow = document.querySelector("#payWindow");
+        paywindow.style.display = "block";
+
+        // payworker profile
+        paywindow.querySelector("#pay-worker-photo").style.backgroundImage = `url(${worker.image})`;
+        document.querySelector("#pay-worker-info > p:nth-child(1)>span").innerHTML = worker.name;
+        // document.querySelector("#pay-worker-info > p:nth-child(2)>span").innerHTML = worker.Age;
+        document.querySelector("#pay-worker-info > p:nth-child(2)>span").innerHTML = worker.FathersName;
+
+
+
+        // pay button on iput change
+        const payAmountInput = document.getElementById('pay-amount');
+
+        cancelButton = document.querySelector(".pay-control>.controller:nth-child(1)");
+        payButton = document.querySelector(".pay-control>.controller:nth-child(2)");
+
+        payAmountInput.addEventListener('input', function () {
+            // Check if the input is blank
+            if (payAmountInput.value === '') {
+                payButton.style.pointerEvents = "none"; // Disable the "Pay" button
+                payButton.classList.remove("green");
+                payButton.classList.add("grey");
+
+
+            } else {
+                console.log(payAmountInput.value)
+                payButton.style.pointerEvents = "auto"; // Enable the "Pay" button
+                payButton.classList.add("green");
+                payButton.classList.remove("grey");
+
+            }
+        });
+
+
+
+        // pay controller
+        console.log(cancelButton, payButton)
+        cancelButton.addEventListener("click", (event) => {
+            console.log(event.target);
+            paywindow.style.display = "none";
+        });
+
+
+
+        payButton.addEventListener("click", (event) => {
+            axis_y = event.target.getAttribute("axis-y");
+
+            console.log(event.target);
+            fetch("table/pay", {
+                method: 'Post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ yValue, doc_id: window.doc_id, amount: document.querySelector("#pay-amount").value })
+
+            })
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                    // paywindow.style.display = "none";
+                    // location.reload();
+                })
+                .catch(error => console.error(error));
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // devolopment tools
+        // navigator.clipboard.writeText(worker.image)
+        //     .then(() => {
+        //         console.log('Text copied to clipboard');
+        //     })
+        //     .catch((err) => {
+        //         console.error('Error copying text to clipboard:', err);
+        //     });
+        // paywindow.querySelector("#pay-worker-photo").setAttribute("src", worker.image);
+
+    }
+
+
+
+    // create present absent svg in a cell and return cell
+    function getPresentAbsentsvg(y, n, dataTable) {
+        y == y;
+        n == n;
+        dataTable == dataTable;
+        if (y == 0) {
+            var cell = document.createElement("td");
+            var div = document.createElement("div");
+
+            cell.setAttribute("class", "atten");
+            div.setAttribute("class", "atten");
+            div.textContent = "Present/Absent";
+            cell.appendChild(div);
+
+
+        } else {
+            // if (n > numCols) return;    
+
+
+            var cell = document.createElement("td");
+            cell.setAttribute("class", "atten");
+
+            // // state of svg
+            k = parseInt(dataTable[n][0].attendance.length) - 1;
+            console.log(k);
+            date = (dataTable[n][0].attendance[k] && dataTable[n][0].attendance[k].date);
+            const dateToCompare = new Date(date);
+            const today = new Date();
+            p = dateToCompare.getDate() == today.getDate() && dateToCompare.getMonth() == today.getMonth() && dateToCompare.getFullYear() == today.getFullYear() ? true : false;
+            let isSwitchedOn = p;
+
+
+            var circleFill = isSwitchedOn ? "#00ff00" : "#ccc";
+            var toggleSwitch = isSwitchedOn ? "" : 'onclick="presentSwitch(event)"'
+            var cx = isSwitchedOn ? '80' : '20';
+            // Create an SVG element as a string
+            var circle = `<circle id="switch-circle" cx="${cx}" cy="25" r="18" fill="${circleFill}" value="${isSwitchedOn}" axis-y="${y}"/>`;
+            // circle.value = isSwitchedOn;
+            var svgContent = `
+            <svg id="switch" xmlns="http://www.w3.org/2000/svg" width="100" height="50" viewBox="0 0 100 50" ${toggleSwitch}>
+                <rect x="5" y="5" width="90" height="40" rx="20" ry="20" fill="#ccc" />
+                ${circle}// define cricle as indepentedent and use this and set variableglobal
+                </svg>
+                `;
+
+            cell.innerHTML = svgContent;
+
+
+        }
+        return cell;
+
+    };
+
+    //reason adder
+    function addReason(params) {
+        console.log("add reason");
+
+        div = document.getElementById("reasonAdder");
+
+        div.style.display = "flex";
+
+        div.querySelector("#reasonDate").innerHTML = new Date().toLocaleDateString();
+
+        inputAmount = div.querySelector("#reasonAmount>input");
+        inputReason = div.querySelector("#reasonReason>textarea");
+
+        reasonSaveButton = div.querySelector("#reasonSave");
+
+
+
+        // reasonEssents
+
+        div.querySelectorAll("#reasonEssents>span>input, #reasonEssents>span>textarea").forEach((input) => {
+            input.addEventListener("input", (event) => {
+                console.log(event.target.value)
+
+                switch (inputAmount.value && inputReason.value) {
+                    case "":
+                        reasonSaveButton.style.pointerEvents = "none";
+                        reasonSaveButton.classList.add("grey");
+                        reasonSaveButton.classList.remove("green");
+                        console.log("done done done done done done done")
+
+                        break;
+
+                    default:
+                        reasonSaveButton.style.pointerEvents = "auto";
+                        reasonSaveButton.classList.remove("grey");
+                        reasonSaveButton.classList.add("green");
+
+                        break;
+                }
+            });
+        })
+
+
+
+
+        // reasonControll
+
+        div.querySelector("#reasonCancel").addEventListener("click", (event) => {
+            console.log(event.target)
+
+            div.style.display = "none"
+        });
+
+        div.querySelector("#reasonSave").addEventListener("click", (event) => {
+            console.log("saving");
+
+
+
+
+            fetch('/table/addReason', {
+                method: 'Post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ inputAmount: inputAmount.value, inputReason: inputReason.value, doc_id: window.doc_id, tableType: window.dataTable[0][1] })
+            })
+                .then(res => res.json())
+                .then(response => {
+                    console.log(response);
+                    div.style.display = "none";
+                    // location.reload();
+                })
+                .catch(error => console.error(error));
+
+
+
+
+
+
+        });
+
+
+        // get the cell
+        // get the y value
+        // get the n value
+        // get the reason
+        // send the req
+        // get the response
+        // update the cell
+        // update the data table
+        // update the grid
+        // update the database
+        // update the doc
+        // update the table
+        // update the grid
+        // update the database
+        // update the doc
+        // update the table
+        // update the grid
+        // update the database
+        // update the doc
+        // update the table
+        // update the grid
+        // update the database
+        // update the doc
+        // update the table
+        // update the grid
+        // update the database
+        // update the doc
+        // update the table
+        // update the grid
+        // update the database
+        // update the doc
+        // update the table
+        // update the grid
+        // update the database
+        // update the doc
+        // update the table
+        // update the grid
+        // update the database
+        // update the doc
+
+
+    }
+
+
+
+
+    // grid maker it will make grid and arrange data into them acc to type of database, run and data from function gettable(doc_id);
+    function gridmaker(dataTable, yValue) {      // may be try to add aworker as totally different opotion under table
+        document.querySelector("#payWindow").style.display = "none";
+        window.dataTable = dataTable;
+        // console.log(dataTable)
+        var numRows = dataTable[0][2]; // Number of rows (x-axis)
+        // var numRows = 4; // Number of rows (x-axis)
+        var numCols = dataTable.length - 2; // Number of columns (y-axis)  // use  // if it is 0 and run the add xaxis number of times   // minus 2 bcoz 1. array give len count from 1 and 2. we are getting data from n which +1 to y
+
+
+
+        if (dataTable[0][1] === 3) {
+            console.log("3");
+
+            // setting table property
+            gridTable.classList.add("reasonTable");
+            gridTable.classList.remove("workerTable");
+
+
+            document.getElementById("dihaad").style.display = "none";
+            // add an button for this
+            addToTable = document.getElementById("addToTable");    // declaraing
+
+            addToTable.addEventListener("click", addReason);
+            addToTable.removeEventListener("click", getWorker);
+            addToTable.innerHTML = "Add Reason";
+
+
+
+
+
+
+
+            // Initialize the grid
+            for (var y = 0; y <= numCols; y++) {
+                n = y + 1;
+                var row = document.createElement("tr");
+                row.setAttribute("axis-y", y);
+                if (y == 0) {
+                    row.classList.add("reasonHeader");
+
+                }
+
+
+                for (var x = 0; x <= numRows; x++) {
+
+
+
+                    if (y >= 1) {
+
+                        if (x == 0) {
+                            date = new Date(dataTable[n].date);
+
+                            var cell = createInputCell(x, y, date.toLocaleDateString());
+                        }
+                        if (x == 1) {
+                            var cell = createInputCell(x, y, dataTable[n].reason, "text");
+                        }
+                        if (x == 2) {
+                            var cell = createInputCell(x, y, dataTable[n].amount);
+                        }
+
+
+                        // console.log("y>=1",row, cell)
+
+                    }
+                    else {
+                        var cell = createInputCell(x, y, (dataTable[n] && dataTable[n][x]) || "");
+                        console.log(row, cell)
+
+                    }
+
+                    row.appendChild(cell);
+
+                }
+                gridTable.appendChild(row);
+                textArea = gridTable.querySelector(`textArea[axis-y="${y}"]`);
+                if (textArea) {
+                    console.log("lastmein", textArea);
+                    textArea.style.height = "auto";
+                    textArea.style.height = textArea.scrollHeight + 'px';
+                }
+
+
+
+
+            }
+            addReason();
+        }
+        else {
+
+            // setting table property
+            gridTable.classList.add("workerTable");
+            gridTable.classList.remove("reasonTable");
+
+            addToTable = document.getElementById("addToTable");    // declaraing
+            // add an button for this
+            addToTable.addEventListener("click", getWorker);
+            addToTable.removeEventListener("click", addReason);
+            addToTable.innerHTML = "Add Worker";
+
+
+
+            // dihaad and dihaadi
+            document.getElementById("dihaad").style.display = "block";
+            var dihaadi = dihaad.querySelector("#dihaad > input");
+            value = dataTable[0][3] ? dataTable[0][3][0] : false;   // to set dihaadi value  
+            // value = dataTable[0][3][0];                          // even the below is working bcoz undefined is as false
+            // console.log(value, !value)                           
+
+
+            dihaadi.value = value ? value : "";
+            if (value) {
+                dihaadi.disabled = true;
+            }
+            if (!value) {
+
+                // dihaadi.disabled = false;
+                dihaadi.addEventListener("change", (event) => {
+                    console.log(event.target.value)
+                    fetch("table/dihaadi", {
+                        method: 'Post',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ value: event.target.value, doc_id: window.doc_id })
+
+                    });
+                })
+            }
+
+
+
+
+
+
+            // Initialize the grid
+            for (var y = 0; y <= numCols; y++) {
+                n = y + 1;
+                // console.log(y, n, numCols);
+
+
+
+
+                var row = document.createElement("tr"); // insert y-value inside of it, instead adding it to each cell
+                row.setAttribute("axis-y", y);
+
+
+
+
+
+
+
+
+
+
+
+
+                // instert a present absent button in row here;
+                cell = getPresentAbsentsvg(y, n, dataTable);
+                row.appendChild(cell);
+
+
+                for (var x = 0; x <= numRows; x++) {
+
+                    cnt = `${x}x, ${y}y`
+
+                    if (y >= 1) {
+
+                        if (x == 0) {
+                            var cell = createInputCell(x, y, (dataTable[n] && dataTable[n][0].detail[1]) || "");   // to set worker 
+
+                            // adding worker_id in row
+                            row.setAttribute("worker-id", (dataTable[n] && dataTable[n][0].detail[0]) || "");
+                            // cell.setAttribute("worker-id", (dataTable[n] && dataTable[n][0].detail[0]) || "");
+
+
+
+
+                        }
+                        else if (x == 1) {
+                            // dow are pay
+                            var td = document.createElement("td");
+                            td.setAttribute("axis-y", y);
+                            td.setAttribute("onclick", "payPop(event)");
+
+                            td.setAttribute("class", "pay");
+
+                            var payBtn = document.createElement("div");
+                            payBtn.textContent = "Pay";
+
+
+                            td.appendChild(payBtn);
+
+                            row.appendChild(td);
+                            // up are pay button
+
+
+                            cell = createInputCell(x, y, dataTable[n][0].attendance.length ? dataTable[n][0].attendance.length : "0");   // to set Np. of days>
+
+                        }
+                        else if (x == 2) {
+                            len = dataTable[n][0].attendance.length;
+                            total = value ? len * value : "Please ad dihadi";                                                  // total payment
+                            window.total = total ? total : "0";
+                            console.log(window.total, value, len);
+
+
+                            var cell = createInputCell(x, y, window.total);
+                        }
+                        else if (x == 3) {
+
+                            paids = dataTable[n][0].payment;
+                            console.log(paids);
+                            paid = 0;
+                            for (const perPay of paids) {
+                                paid += parseInt(perPay.amount);
+                                console.log("ho raha hai na", paid)
+
+                            }
+
+                            window.paid = paid ? paid : "0";
+
+                            var cell = createInputCell(x, y, window.paid);                                                              //paid amount
+
+                        }
+                        else if (x == 4) {
+
+
+                            due = (typeof window.total === 'number' && typeof window.paid === 'number') ? (window.total - window.paid) : "---";
+
+
+
+                            var cell = createInputCell(x, y, due);
+                            console.log(cell, window.paid, window.total)
+
+
+                        }
+
+                        else {
+                            var cell = createInputCell(x, y, (dataTable[n] && dataTable[n][x]) || "");
+                        }
+
+
+                    }
+
+                    else {
+
+                        if (x == 1) {
+                            var td = document.createElement("td");
+                            var payBtn = document.createElement("div");
+                            payBtn.textContent = "Pay Row";
+                            td.setAttribute("class", "pay");
+
+
+                            td.appendChild(payBtn);
+
+                            row.appendChild(td);                 // appending before the below cell, even if it will be below the cell it is gettting apppended first
+
+                        }
+                        var cell = createInputCell(x, y, (dataTable[n] && dataTable[n][x]) || "");
+
+                    }
+
+                    row.appendChild(cell);
+                }
+                gridTable.appendChild(row);
+                // Call the function to adjust cell widths for the last cell of the current y-axis
+                // var lastInputCell = row.cells[numRows - 1].querySelector("input");
+                // adjustCellWidthTargetOnly(lastInputCell);
+            }
+
+
+
+            // Adjust cell widths within the same column (y-axis) as the changed cell adjustCellWidthTargetOnly(targetCell)
+
+
+            // Add click event listener to the buttons
+            // var addXAxisButton = document.getElementById("addXAxis");
+            // var addYAxisButton = document.getElementById("addYAxis");
+            // addXAxisButton.addEventListener("click", addXAxis);
+            // addYAxisButton.addEventListener("click", addYAxis);
+
+
+            // devolopment tools
+            document.querySelector('td[axis-y="15"]') && document.querySelector('td[axis-y="15"]').click();
+        } //end of else
+
+
+
+        // create input cell, removing its from gridmaker, coz  want to run for 3 tto
+        // Create an input cell with given x and y values
+        function createInputCell(x, y, text, cr) {
+            var cell = document.createElement("td");
+            if (x == 1 && y != 0 && cr == "text") {
+                var input = document.createElement("textarea");
+
+                input.innerHTML = text || "";
+                // input.style.height = "auto";
+                // input.style.height = (input.scrollHeight) + 'px';
+                // console.log(input)
+                // console.log(input.scrollHeight)
+
+            }
+            else {
+                var input = document.createElement("input");
+                input.value = text || "";
+            }
+            input.type = "text";
+
+
+
+            // Set custom attributes for x and y values
+            input.setAttribute("axis-x", x);
+            input.setAttribute("axis-y", y);
+            // input.style.width = (input.scrollWidth) + 'px';
+
+            // to disable the first cell of y-axis with ther name already set increase a little bit
+            // if (y == 0) {
+            input.disabled = true;
+            // }
+            // else {
+            // input.disabled = false;
+            // }
+
+
+
+            // adding workername calling event listener
+            // if (x == 0 & y != 0) {                                          // add a check and set only if it is blank
+            //     // console.log(input)
+            //     input.addEventListener("input", (event) => getWorker(event))
+            // }
+
+            // // nadd event lostener to cell wise by which need or not input.addEventListener("kuchbitoh", function (event)
+
+
+            cell.appendChild(input);
+
+            return cell;
+        }
+
+
+    }; // end of gridmaker;
+
+
+
+
+
+
+    function getWorker(event) {
+        // var input = event.target;
+        // var xValue = input.getAttribute("axis-x");
+        // var yValue = input.getAttribute("axis-y");
+        // console.log(xValue, yValue)
+        // to filter out blank inputs
+        var newValue = "*";
+        // if (newValue.trim() === "") {
+        //     console.log("blank input");
+        //     return;
+        // }
+        // console.log(input)
+
+        // adjustCellWidthTargetOnly(input); // Adjust cell widths within the same column (y-axis) as the changed cell
+
+        //  post req  using fetch to save data
+
+        fetch('/workerprofile/profile', {
+            method: 'Post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ searchString: newValue, ignoreCount: 0 })
+        })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+                // const minimizeButton = document.getElementById( 'minimizeButton');
+                // minimizeButton.click();
+                // location.reload();
+                reccomender(result)   // this will show data a
+
+            })
+            .catch(error => console.error(error));
+
+    }
+
+
+
+    //  toggle switch
+    function presentSwitch(event) {     // this switch is designed for multiple use but we will hamper that by removing onclick from svg
+        event.target.setAttribute("onclick", ""); // remove onclick from svg
+        const switchCircle = event.target.querySelector('circle'); // Get the clicked element (the circle)
+
+        console.log(switchCircle)
+        isSwitchedOn = switchCircle.getAttribute("value") === "true" ? true : false;
+        console.log(isSwitchedOn)
+        console.log(event);
+
+        isSwitchedOn = !isSwitchedOn; // Toggle the state
+        switchCircle.setAttribute("value", isSwitchedOn);  // set toogled value to circle
+        console.log(isSwitchedOn)
+
+        // Adjust the cx attribute and fill color based on the switch state
+        switchCircle.setAttribute('cx', isSwitchedOn ? '80' : '20');
+        switchCircle.setAttribute('fill', isSwitchedOn ? '#00ff00' : '#ccc');
+
+
+        fetch("table/present", {
+            method: 'Post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ yValue: switchCircle.getAttribute("axis-y"), doc_id: window.doc_id })
+
+        });
+
+
+
+    }
+
+    // getting worker list from db and send to table/addwordker
+    function reccomender(result, input) {
+
+
+        console.log(result.length)
+        var recommendationsContainer = document.createElement("div");
+        recommendationsContainer.setAttribute("class", "reccomendDiv");
+
+        // Create a new box for each user and append it to the container
+        for (var x in result) {
+            var worker = result[x];
+
+            var box = document.createElement("div");
+            box.className = "recommendation-box";
+            box.setAttribute("data-worker-id", worker._id);
+            // adding event listener to box
+            box.addEventListener("click", function (event) {
+                console.log(event, event.target, event.target.getAttribute("data-worker-id"));
+                worker_id = event.target.getAttribute("data-worker-id");
+                // console.log(event.target.querySelector("div.worker-info").querySelector("div.worker-name"));
+                worker_name = event.target.querySelector(".worker-info > div.worker-name").textContent;
+
+
+
+                fetch('/table/addworker', {
+                    method: 'Post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ doc_id: window.doc_id, worker_id, worker_name })   // also current login user id
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result);
+
+
+                    })
+                    .catch(error => console.error(error));
+
+
+            })
+
+
+
+            var image = document.createElement("img");
+            image.setAttribute("src", worker.image);
+
+            var userInfo = document.createElement("div");
+            userInfo.className = "worker-info";
+
+            var name = document.createElement("div");
+            name.className = "worker-name";
+            name.textContent = worker.name;
+
+            var age = document.createElement("div");
+            age.className = "worker-age";
+            age.textContent = worker.Age;
+
+            var father = document.createElement("div");
+            father.className = "worker-father";
+            father.textContent = "Father: " + worker.FathersName;
+
+            userInfo.appendChild(name);
+            userInfo.appendChild(age);
+            userInfo.appendChild(father);
+
+            box.appendChild(image);
+            box.appendChild(userInfo);
+
+            recommendationsContainer.appendChild(box);
+        }
+        document.body.appendChild(recommendationsContainer);
+
+
+    }
+
+
+    // nesting overlay GRAM adder, will have to move somewhere else, not everytime they will add any GRAM, send it in Another file as <iframe src="https://www.example.com"></iframe>.
+    function onNesta(event) {
+        smallPageContent = ` <form id="main" action="/main/a">
+        <input type="text" name="maina" id="maina" placeholder="enter name of directory you want to create">
+        <button type="submit">Upload</button>
+    </form>`
+
+        // Display the overlay
+        const overlay = document.getElementById('overlay');
+        overlay.style.display = 'block';
+
+        // Set the content of the overlay
+        overlay.innerHTML = `
+        <div class="overlay-content">
+            ${smallPageContent}
+            <button id="minimizeButton">Minimize</button>
+        </div>
+    `;
+        // Add a click event listener to the minimize button
+        const minimizeButton = document.getElementById('minimizeButton');
+        minimizeButton.addEventListener('click', () => {
+            overlay.style.display = 'none'; // Hide the overlay when the button is clicked
+        });
+
+        // Add event listener to the form after it's inserted into the DOM
+        const form = document.getElementById('main');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const maina = document.getElementById('maina').value;
+            console.log(event, maina);
+
+            fetch('/main/a', {
+                method: 'Post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ maina })
+            })
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                    // const minimizeButton = document.getElementById('minimizeButton');
+                    // minimizeButton.click();
+                    location.reload();
+
+                })
+                .catch(error => console.error(error));
+        });
+
+
+    }
+
+
+    // // get data from  db trigger gridmaker(dataTable)
+    function gettable(doc_id, yValue) {
+        console.log(doc_id);
+        window.doc_id = doc_id;
+
+        fetch('/table/data' + doc_id)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse response body as JSON
+            })
+            .then(dataTable => {
+                // Handle the retrieved data here
+                console.log(dataTable);
+                // navigator.clipboard.writeText(dataTable)
+                gridmaker(dataTable, yValue);
+
+                // createInputCell();  // run itteration thorugh this function with data array   
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Fetch error:', error);
+            });
+    }
+
+    //  trigger by clicked on dowm container merged by function onItemClick(event) to execute gettable(doc_id);, 
+    function getItem(event) {
+        var clickedItem = event.target;
+        // marking as clicked and removing from previous one
+        elementToRemoveClassFrom = document.querySelector("#wdfk > .clicked");
+
+        if (elementToRemoveClassFrom) {
+            elementToRemoveClassFrom.classList.remove("clicked");
+        }
+        clickedItem.classList.add("clicked");
+        //
+
+        var yValue = clickedItem.getAttribute("data-y");
+        var doc_id = clickedItem.getAttribute("doc-id");
+        // console.log(window.xValue, yValue, doc_id)
+        // window.yValue = yValue          // instead save them in cache
+
+        document.getElementById("gridTable").innerHTML = "";   // to clear the table
+        gettable(doc_id, yValue);
+
+        document.cookie = "clickedItemDusra=" + yValue + ";";
+        const cookies = document.cookie;
+        console.log(cookies);
+
+
+
+    };
+
+
+
+    // after cmweging router a b this below need to changed       //need to rewrite so only doc-id value will be changes not resetting whole conatiner wdfk
+    function onItemClick(event) {
+        // marking this as clicked and this removing from previous one
+
+        elementToRemoveClassFrom = document.querySelector("#gram-list > .clicked");
+
+        if (elementToRemoveClassFrom) {
+            elementToRemoveClassFrom.classList.remove("clicked");
+        }
+
+        event.target.classList.add("clicked");
+
+
+
+
+        document.getElementById("gridTable").innerHTML = "";      // to clear the table
+        var container = document.getElementById("wdfk");
+        container.innerHTML = "";
+        console.log(event.target, container)
+        var clickedItem = event.target;
+        var xValue = clickedItem.getAttribute("data-x");
+        // window.xValue = xValue;     // instead save them in cache
+        console.log(xValue, window.data)
+        // creating b
+        for (let n = 0; n < 4; n++) {
+            // if (y == 0) continue;
+            y = n + 1;
+            // console.log("ho raha hai lund mera", window.data[xValue][y]);
+            var newItem = document.createElement("div");
+            newItem.className = "item";
+            var container = document.getElementById("wdfk");
+            container.appendChild(newItem);
+            newItem.setAttribute("data-y", n);
+            newItem.setAttribute("doc-id", window.data[xValue][y]);
+
+            newItem.addEventListener("click", getItem);
+            // naming them acc to thie position
+            if (y == 1) {
+                newItem.textContent = "Worker";
+            } else if (y == 2) {
+                newItem.textContent = "Driver";
+            } else if (y == 3) {
+                newItem.textContent = "Fitter";
+            } else if (y == 4) {
+                newItem.textContent = "Kharcha";
+
+            }
+        }
+
+        // setting clicked container as cookie
+        ;
+        document.cookie = "clickedItem=" + xValue + ";";
+
+        // click item from cookie
+        const ItemDusraa = checkCookie('clickedItemDusra');
+        if (ItemDusraa.status) {
+            document.querySelector(`[data-y="${ItemDusraa.value}"]`).click();
+
+        } else {
+            console.log('Cookie "Item" does not exist.');
+        }
+
+    }
+
+    window.onload = function () {
+        // Your JavaScript code here
+        console.log("Web page loaded!");
+        fetch("/main/data")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Parse response body as JSON
+            })
+            .then(bata => {
+                // Handle the retrieved data here
+                bata = bata.filter(value => value !== false);
+                data = [];
+
+                bata.forEach((value, index) => {
+                   console.log(value, index)
+                   if(value === false || value === null){
+                       console.log("false")
+                   }
+                   else{
+                    
+                    data.push(value);
+                   }
+                });
+                window.data = data;
+                console.log(data);
+
+                console.log(data.length);
+                for (x in data) {
+                    var newItem = document.createElement("div");
+                    newItem.className = "item";
+                    newItem.textContent = data[x][0];
+                    var container = document.getElementById("gram-list");
+                    container.appendChild(newItem);
+                    newItem.setAttribute("data-x", x);
+
+                    newItem.addEventListener("click", onItemClick);
+
+
+
+
+                    // for(y in data[x]){
+                    //     console.log(x,y,data[x][y] )
+                    // }
+                }
+
+
+                const Item = checkCookie('clickedItem');
+                if (Item.status) {
+                    document.querySelector(`[data-x="${Item.value}"]`).click();
+
+                } else {
+                    console.log('Cookie "Item" does not exist.');
+                }
+
+
+
+
+
+
+
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error("Fetch error:", error);
+            });
+
+
+    };
+
+    function checkCookie(name) {
+        const cookies = document.cookie.split('; ');
+        for (const cookie of cookies) {
+            const [key, value] = cookie.split('=');
+            if (key === name) {
+                return { status: true, key: key, value: value }; // Cookie with the specified name exists
+            }
+        }
+        return { status: false }; // Cookie with the specified name does not exist
+    }
+
+</script>
+
+</html>

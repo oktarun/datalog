@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #userbox {
+        border: 1px rgb(235, 231, 231) solid;
+        margin: 10px 0px;
+    }
+
+    #addMainToUser {
+
+        margin-top: 30px;
+    }
+    button{
+        display: none;
+    }
+</style>
+
+<body onload="initializePage()">
+ 
+  
+    <hr>
+    <br>
+    <hr>
+
+    <div id="addMainToUser"></div>
+
+</body>
+<script>
+    var uSers = [];
+
+   
+    
+ 
+
+    document.getElementById('addMainToUser');
+    async function initializePage() {
+    try {
+        console.log("first start");
+
+        const accountsResponse = await fetch('/user/accounts', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const accountsData = await accountsResponse.json();
+
+        console.log(accountsData);
+
+        let html = '';
+        // let uSers = [];
+
+        accountsData.forEach((user) => {
+            console.log("user tak");
+            if (user.userLevel !== "admin") {
+                uSers.push({ id: user._id, main: user.main });
+
+                html += `
+                    <div id="userbox">
+                        <h1>${user._id}</h1>
+                        <h3>${user.name}</h3>
+                        <p>${user.mobileNo}</p>
+                        <p>${user.psd}</p>
+                        <p>${user.userLevel}</p>
+                        <div class="permissionbox" id="${user._id}" onclick="arrangeMain(this)">Arrange</div>
+                        <button onclick="updateMain('${user._id}')">Click</button>
+                    </div>
+                `;
+            }
+        });
+
+        document.getElementById('addMainToUser').innerHTML = html;
+
+        console.log("second start");
+
+        const mainDataResponse = await fetch('/main/data', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        const mainData = await mainDataResponse.json();
+
+        window.mainData = mainData;
+
+        console.log(mainData);
+
+        let mainer = '';
+        let maincounter = 0;
+
+        mainData.forEach((main) => {
+            console.log(main[0])
+
+            mainer += `
+                <input type="checkbox" onclick="addMain(this)" id="c${maincounter}" >${main[0]}<br>
+            `;
+            maincounter++;
+        });
+
+        window.mainer = mainer;
+
+        // You can uncomment this part if you want to set mainer content to permissionbox elements
+        // document.querySelectorAll(".permissionbox").forEach((box) => {
+        //     box.innerHTML = mainer;
+        //     console.log(box);
+        // });
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+
+
+
+    function arrangeMain(e) {
+        if(e.innerHTML !="Arrange"){
+            return;
+
+        }
+        e.parentElement.querySelector("button").style.display = "block";
+
+
+        console.log(e.id);
+        var user = uSers.find(user => user.id === e.id);
+
+        e.innerHTML = window.mainer;
+
+        maincount = 0;
+
+        user.main.forEach((mai) => {
+            if (mai) {          // if false doesnt run and if data run
+                console.log(mai)
+
+                e.querySelector(`#c${maincount}`).checked = true;
+            }
+
+
+
+            maincount++;
+        })
+
+
+
+
+    };
+
+
+
+    function addMain(e) {
+        console.log(e.parentElement.id, e.id, e.checked ? 1 : 0);
+        idPosition = e.id.slice(1);
+        console.log(parseInt(idPosition))
+
+        var user = uSers.find(user => user.id === e.parentElement.id);
+
+
+        // Check if the user.main array is long enough to accommodate the given position
+        if (user.main.length <= idPosition) {
+            // If not, expand the array with null values up to the desired position
+            while (user.main.length <= idPosition) {
+                user.main.push(null);
+            }
+        }
+        // Update the value in the array based on the checkbox's checked status
+        fdata = e.checked ? window.mainData[idPosition]: false;
+        user.main[idPosition] = fdata;
+
+        // Now the user.main array has been updated
+        console.log(user.main, fdata);
+
+
+
+
+
+        // console.log(e.checked)
+
+        // store the pre value and clciked value to array and then after submit send it to server to create a own main for each user 
+
+    }
+
+
+    function updateMain(userId) {
+
+        var user = uSers.find(user => user.id === userId);
+        console.log(user)
+        // const filteredArray = user.main.filter(value => value !== false);
+        // user.main = filteredArray;
+        // console.lgo(user)
+
+       
+
+        fetch('/user/_main', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({user})
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => console.log(err));
+
+        
+    }
+
+
+</script>
+
+
+</html>

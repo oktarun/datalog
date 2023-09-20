@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAINebf</title>
+</head>
+<body>
+    <form id="main" action="/main/a">
+        <input type="text" name="maina" id="maina" placeholder="enter name of directory you want to create">
+        <button type="submit">Upload</button>
+    </form>
+</body>
+<script>
+    const form = document.getElementById('main');
+    form.addEventListener('submit', (event)=>{
+        event.preventDefault();
+        const maina = document.getElementById("maina").value;
+        console.log(event, name)
+        
+        
+            
+            fetch('/main/a', {
+                method: 'Post',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({maina})
+            })
+          .then(response => response.json())
+          .then(result => {
+            console.log(result);
+            // var image = document.createElement("img")
+            // image.setAttribute("class", "image")
+            // image.setAttribute("src", result)
+            // image_box.append(image)
+            
+          })
+          .catch(error => console.error(error));
+        
+
+    })
+</script>
+</html>
