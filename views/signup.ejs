@@ -7,20 +7,63 @@
     <title>Document</title>
 </head>
 
+<style>
+    body{
+        background-color: rgb(0, 0, 0);
+        color: white;
+    }
+
+    form{
+        margin-top: 10%;
+        justify-content: center;
+        text-align: center;
+        min-height: 550px;
+    }
+    form>p{
+        margin: 30px;
+        display: block;
+        color: white;
+        font-size: larger;
+        font-weight: bold;
+      
+    
+        
+    }
+    form>p>input{
+        background-color: black;
+        border-bottom: white .2px solid;
+        border-right: white .2px solid;
+        color: rgb(0, 0, 0);
+        height: 30px;
+
+        font-size: larger;
+        /* font-weight: bold; */
+
+        text-align: center;
+
+        background-color: white;
+        margin-left: 20px;
+    }
+    button{
+        height: 40px;
+        width: 60px;
+        background-color: rgb(113, 218, 113);
+    }
+</style>
 
 <body>
 
     <form method="post" action="/user/signup">
 
-        <input type="text" name="username" placeholder="username">
-        <input type="password" name="password" placeholder="password">
-        <input type="number" name="mobileNo" placeholder="Phone no.">
-        <button type="submit" value="signup">Add thsi User </button>
+       <p> Name: <input type="text" name="username" placeholder="username" required></p>
+       <p> Set password: <input type="password" name="password" placeholder="password" required> </p>
+       <p>Mobile number:  <input type="number" name="mobileNo" placeholder="Phone no." required> </p>
+        <button type="submit" value="signup">Add </button>
 
     </form>
-    <hr>
-    <br>
-    <hr>
+
 
     
 </body>
+
+</html>

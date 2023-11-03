@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Workerprofile = require('../models/workerprofile');
+const { profile } = require('console');
 // const workerprofile = require('../models/workerprofile');
 
 
@@ -16,22 +17,25 @@ const Workerprofile = require('../models/workerprofile');
 router.post('/', async (req, res) => {
     const { imagedata, name, father, age } = req.body;
     // console.log(imagedata, name, father, age);
+    userId = req.userid;
 
-    profile = new Workerprofile();
+    var profile = new Workerprofile();
     // Workerprofile.findById("650467ef920afa44603214ec", function (err, profile) {
-        profile.name = name;
-        profile.FathersName = father;
-        profile.Age = age;
-        profile.image = imagedata;
-        profile.save(function (err, updatedProfile) {
-            if (err) {
-                console.log(err)
-                res.end()
-            } else {
-                console.log(updatedProfile)
-                res.end()
-            }
-        });
+    profile.name = name;
+    profile.FathersName = father;
+    profile.Age = age;
+    profile.image = imagedata;
+    profile.createdBy = userId;
+    profile.save(function (err, updatedProfile) {
+        if (err) {
+            console.log(err)
+
+            res.json({ status: 400, message: "Err happened" });
+        } else {
+            console.log(updatedProfile)
+            res.json({ status: 200, message: "Saved Succesfully" });
+        }
+    });
     // });
 
 
@@ -44,7 +48,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get('/profile:worker_id', async (req, res, next) => {   // here you chatgpt put a "/" after profile like this "/profile/:worker_id/" and thsa why it was not working
+router.get('/profile:worker_id', async (req, res) => {   // here you chatgpt put a "/" after profile like this "/profile/:worker_id/" and thsa why it was not working
     try {
         const { worker_id } = req.params;
         console.log(worker_id)
@@ -69,25 +73,37 @@ router.get('/profile:worker_id', async (req, res, next) => {   // here you chatg
 });
 
 
-router.post("/profile", async (req, res) => {
+router.post("/profiles", async (req, res) => {
     console.log(req.params)
     searchString = req.body.searchString;
     ignoreCount = req.body.ignoreCount;
-    limitCount = 10;
-    console.log(searchString)
+    limitCount = 5;
+    console.log(searchString);
+
+    if (searchString === "") {
+        searchFor = {
+
+        }
+
+    } else {
+
+        searchFor = {
+            name: {
+                $regex: searchString,
+                $options: 'i' // Case-insensitive matching
+            }
+        }
+
+    }
 
 
-    Workerprofile.find({
-        // name: {
-        //     $regex: searchString,
-        //     $options: 'i' // Case-insensitive matching
-        // }
-    }).skip(ignoreCount).sort({ name: 1 }).limit(limitCount).exec((err, matchingNameDoc) => {
+    Workerprofile.find(searchFor).skip(ignoreCount).sort({ name: 1 }).limit(limitCount).exec((err, matchingNameDoc) => {
         if (err) {
             console.error(err);
             return;
         }
-        res.json(matchingNameDoc);
+
+        res.json({ data: matchingNameDoc, should: limitCount });
 
         console.log(matchingNameDoc.length);
 

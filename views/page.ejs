@@ -6,69 +6,659 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            background-color: black;
+            overflow-x: hidden;
+        }
+
+        form {
+
+            margin: 40px auto;
+            width: max-content;
+            height: max-content;
+
+            /* display: grid;
+            place-items: center;
+             */
+            min-height: 550px;
+
+        }
+
+        form>p,
         input {
             display: block;
-            margin: 10px;
+            margin: 20px 30px;
+            height: 55px;
+            width: 90%;
+            background-color: white;
+            color: black;
+            font-size: larger ;
         }
+
+        /* input {
+            display: block;
+            margin: 20px 30px;
+            height: 55px;
+            width: 90%;
+            font-size: 35px;
+
+        } */
+
+
+        button {
+
+            height: 30px;
+            width: 50px;
+            padding: 10px;
+            background-color: green;
+            color: white;
+            left: 40%;
+
+
+        }
+
+        takepic {
+            height: 100%;
+            width: 100%;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgb(0, 0, 0);
+        }
+
+        #photoCanvas {
+            border: white 1px solid;
+            display: none;
+        }
+
+
+        #camera,
+        #cameraCapture {
+            /* transform: scaleX(-1); */
+            position: absolute;
+            /* display: none; */
+            border: white 1px solid;
+
+            /* display: block;
+            width: 100%;
+            height: 80%; */
+            /* object-fit: cover; */
+            /* Maintain aspect ratio and cover entire container */
+            top: 100px;
+            left: 100px;
+
+
+
+
+
+        }
+
+        #cameraCapture {
+            display: none;
+        }
+
+        #borderSquare {
+            display: none;
+            position: absolute;
+            /* width: 300px; */
+            /* Adjust the width as needed */
+            /* height: 300px; */
+            /* Adjust the height as needed */
+            /* top: calc(50% - 150px);
+            left: calc(50% - 150px); */
+            top: 20%;
+            left: 20%;
+
+            /* transform: translate(-50%, -50%); */
+            border: 1px solid red;
+            background-color: transparent;
+
+            cursor: move;
+            user-drag: element;
+            user-select: none;
+
+
+        }
+
+
+        #controllCapture {
+
+            height: 10%;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+
+            /* border: .1px white solid; */
+            position: absolute;
+            bottom: 0;
+        }
+
+        #controllCapture>div {
+            display: inline-block;
+            height: 100%;
+            width: 25%;
+            background-color: transparent;
+            /* border: white 1px dashed; */
+
+
+
+
+
+        }
+
+        #controllCapture>div>svg {
+
+            height: 100%;
+            width: 100%;
+
+
+
+
+
+
+        }
+
+        #saveButton {
+            display: none;
+        }
+
+        #againButton {
+            display: none;
+            fill: white;
+
+        }
+
+        img#cameraCapture {
+            pointer-events: none;
+        }
+
+        /* #scrollOne{
+
+            position: absolute;
+            display: none;
+            width: 0%;
+            height: 0%;
+            top: 0;
+            left: 0;
+            z-index: 4;
+
+        } */
     </style>
 </head>
 
 <body>
+    <!-- <div id="scrollOne"></div> -->
 
     <form id="uploadform" action="/workerprofile">
-        <input type="text" id="name" placeholder="Enter worker name here">
-        <input type="file" name="image" id="imageinput">
-        <input type="text" name="father" id="father" placeholder="father's name">
-        <input type="date" name="age" id="age">
-        <button type="submit">Upload</button>
+        <input type="text" id="name" placeholder="Enter worker name here" required>
+        <!-- <input type="file" name="image" id="imageinput" required> -->
+        <!-- <input type="file" name="image" accept="image/*" id="imageInput" style="display: none;" required> -->
+
+
+
+        <input type="text" name="father" id="father" placeholder="father's name" required>
+        <!-- <input type="date" name="age" id="age" required> -->
+        <div id="lastShot">Jihaan</div>
+        <p onclick="startCamera()">New Photo</p>
+
+        <button type="submit">Save</button>
     </form>
+    <takepic>
+
+        <div id="vidcontainer">
+
+
+            <video id="camera" autoplay playsinline></video>
+            <img id="cameraCapture">
+            <div id="borderSquare" class="draggable"></div>
+        </div>
+        <canvas id="photoCanvas"></canvas>
+        <controller id="controllCapture">
+
+            <div>
+                <svg id="switchCameraButton" xmlns="http://www.w3.org/2000/svg" width="800px" height="800px"
+                    viewBox="0 0 48 48" version="1" enable-background="new 0 0 48 48">
+                    <g fill="#5E35B1">
+                        <path d="M33.9,12.1H14.2L17.6,7c0.4-0.6,1-0.9,1.7-0.9h9.6c0.7,0,1.3,0.3,1.7,0.9L33.9,12.1z" />
+                        <path d="M14,11H8V9.2C8,8.5,8.5,8,9.2,8h3.6C13.5,8,14,8.5,14,9.2V11z" />
+                        <path
+                            d="M40,42H8c-2.2,0-4-1.8-4-4V14c0-2.2,1.8-4,4-4h32c2.2,0,4,1.8,4,4v24C44,40.2,42.2,42,40,42z" />
+                    </g>
+                    <path fill="#E8EAF6"
+                        d="M34,25c0-5.5-4.5-10-10-10c-2.4,0-4.6,0.8-6.3,2.2l1.2,1.6c1.4-1.1,3.1-1.8,5.1-1.8c4.4,0,8,3.6,8,8h-3.5 l4.5,5.6l4.5-5.6H34z" />
+                    <path fill="#E8EAF6"
+                        d="M29.1,31.2C27.7,32.3,25.9,33,24,33c-4.4,0-8-3.6-8-8h3.5L15,19.4L10.5,25H14c0,5.5,4.5,10,10,10 c2.4,0,4.6-0.8,6.3-2.2L29.1,31.2z" />
+                </svg>
+
+            </div>
+            <div>
+                <svg id="captureButton" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <!-- Transparent circle for the checkmark background -->
+                    <circle cx="12" cy="12" r="10" fill="#fff" stroke="#fff" stroke-width="2" />
+                    <circle cx="12" cy="12" r="7" fill="#fff" stroke="#000000" stroke-width="2" />
+
+                    <!-- Checkmark symbol -->
+                    <!-- <path fill="none" stroke="#fff" stroke-width="2" d="M6.293 12.293L9.88 15.88l6.364-6.364" /> -->
+                </svg>
+
+                <svg id="againButton" fill="#000000" height="24" width="24" version="1.1" id="Layer_1"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 0 423.642 423.642" xml:space="preserve">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="M407.517,123.262l-27.717,11.48c18.585,44.869,18.585,94.29,0,139.159c-18.585,44.869-53.531,79.815-98.4,98.4 c-92.627,38.368-199.194-5.776-237.559-98.4C8.46,188.486,43.246,91.212,121.514,46.501v74.992h30V7.498H37.519v30h43.755 c-73,57.164-102.323,158.139-65.15,247.885c33.754,81.49,112.806,130.768,195.972,130.762c26.96-0.002,54.367-5.184,80.784-16.125 C400.788,355.322,452.213,231.169,407.517,123.262z">
+                        </path>
+                    </g>
+                </svg>
+
+            </div>
+            <div>
+                <!-- save svg -->
+                <svg id="saveButton" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <!-- Transparent circle for the checkmark background -->
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="2" />
+
+                    <!-- Checkmark symbol -->
+                    <path fill="none" stroke="#fff" stroke-width="3" d="M6.293 12.293L9.88 15.88l6.364-6.364" />
+                </svg>
+                <!-- cancel svg -->
+                <svg id="cancelButton" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+                    <!-- Circle background -->
+                    <circle cx="32" cy="32" r="30" fill="#ccc" />
+
+                    <!-- Cross (X) shape -->
+                    <line x1="20" y1="20" x2="44" y2="44" stroke="#ff0000" stroke-width="4" />
+                    <line x1="20" y1="44" x2="44" y2="20" stroke="#ff0000" stroke-width="4" />
+                </svg>
+
+            </div>
+        </controller>
+    </takepic>
     <script>
         const form = document.getElementById('uploadform');
-        const input = document.getElementById('imageinput');
+        // const input = document.getElementById('imageInput');
+
+
 
 
 
         form.addEventListener('submit', (event) => {
+
             event.preventDefault();
             const name = document.getElementById("name").value;
             const father = document.getElementById('father').value;
-            const age = document.getElementById('age').value;
-            const file = input.files[0];
-            console.log(event, file, name)
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
+            // const age = document.getElementById('age').value;
+
+
+            // const file = input.files[0];
+            // console.log(event, file, name)
+            // const reader = new FileReader();
+            // reader.readAsDataURL(file);
 
 
 
-            reader.onloadend = () => {
-                const imagedata = reader.result;
+            // reader.onloadend = () => {
+            // const imagedata = reader.result;
+            if (window.imageInput === null) {
+                console.log(window.imageInput);
+                
+                return;
 
-                fetch('/workerprofile', {
-                    method: 'Post',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ imagedata, name, father, age })
-                })
-                    .then(response => response.json())
-                    .then(result => {
-                        console.log(result);
-                        // var image = document.createElement("img")
-                        // image.setAttribute("class", "image")
-                        // image.setAttribute("src", result)
-                        // image_box.append(image)
-                        try {
-                            navigator.clipboard.writeText(result);
-                            console.log('Content copied to clipboard');
-                        } catch (err) {
-                            console.error('Failed to copy: ', err);
-                        }
-
-                    })
-                    .catch(error => console.error(error));
             }
+            // else {
+            console.log(window.imageInput);
+            // return;
+
+            // }
+            const imagedata = window.imageInput;
+
+            fetch('/workerprofile', {
+                method: 'Post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ imagedata, name, father })
+            })
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result);
+               
+                        message(result.status, result.message)
+
+                    
+
+
+                    // var image = document.createElement("img")
+                    // image.setAttribute("class", "image")
+                    // image.setAttribute("src", result)
+                    // image_box.append(image)
+                    // try {
+                    //     // navigator.clipboard.writeText(result);
+                    //     console.log('Content copied to clipboard');
+                    // } catch (err) {
+                    //     console.error('Failed to copy: ', err);
+                    // }
+
+                })
+                .catch(error => console.error(error));
+            // }
 
         })
+
+
+        // for capturing
+        const camera = document.getElementById('camera');
+        const photoCanvas = document.getElementById('photoCanvas');
+        const captureButton = document.getElementById('captureButton');
+        let imageInput = null;
+        window.imageInput = imageInput;
+        const switchCameraButton = document.getElementById('switchCameraButton');
+        let currentCamera = 'environment'; // 'environment' for back camera, 'user' for front camera
+
+        let stream;
+
+        // Function to start camera and display video feed
+        async function startCamera() {
+
+            againFresh();
+            document.querySelector("#switchCameraButton").style.display = "block";
+            document.body.style.overflow = "hidden";
+            document.getElementById("cameraCapture").style.top = "100px"
+
+
+            try {
+                const constraints = {
+                    video: {
+                        facingMode: currentCamera,
+                    },
+                };
+                stream = await navigator.mediaDevices.getUserMedia(constraints);
+                camera.srcObject = await stream;
+                document.querySelector("takepic").style.display = "block";
+
+                // camera.addEventListener('loadedmetadata', function () {
+                //     cam = camera.getBoundingClientRect();
+                // document.querySelector("takepic").style.display = "block";
+                //     console.log(camera.videoWidth, camera.videoHeight, cam);
+                //     document.querySelector("#borderSquare").style.top = `${(camera.videoHeight / 2) - 150 + cam.top}px`
+                //     document.querySelector("#borderSquare").style.left = `${(camera.videoWidth / 2) - 150 + cam.left}px`
+
+
+                // });
+
+
+            } catch (error) {
+                console.error('Error accessing camera:', error);
+            }
+        };
+
+        // Function to stop the camera stream
+        function stopCamera(stream) {
+            if (stream && stream.getTracks) {
+                stream.getTracks().forEach(function (track) {
+                    track.stop();
+                });
+            }
+        }
+
+        // to switch camera
+        switchCameraButton.addEventListener('click', async () => {
+            if (currentCamera === 'environment') {
+                currentCamera = 'user';
+            } else {
+                currentCamera = 'environment';
+            }
+
+            // Stop the current camera stream
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+
+            // Start the camera with the new facing mode
+            startCamera();
+        });
+
+        // Function to capture and display a photo from the camera
+        function capturePhoto() {
+
+            // document.querySelector("#scrollOne").style.display = "block"
+            document.querySelector("#switchCameraButton").style.display = "none";
+
+
+
+            photo = document.getElementById("cameraCapture");
+
+            photo.src = captureCurrentFrame();
+
+            stopCamera(stream)
+            stream.getTracks().forEach(track => track.stop());
+            camera.style.display = "none";
+            photo.style.display = "block";
+
+            // Call the function to make the box draggable
+            makeBoxDraggable();
+
+
+
+
+
+
+
+            // // Get the positions of #camera and #borderSquare
+            // const cameraRect = document.querySelector("#camera").getBoundingClientRect();
+            // const borderSquareRect = document.querySelector("#borderSquare").getBoundingClientRect();
+
+            // // Calculate the position relative to #camera
+            // const x = borderSquareRect.x - cameraRect.x;
+            // const y = borderSquareRect.y - cameraRect.y;
+
+            // console.log(photoCanvas.width, photoCanvas.height, x, y);
+
+            // context.drawImage(camera, x, y, 300, 300, 0, 0, photoCanvas.width, photoCanvas.height);
+
+            // photoCanvas.style.display = 'block';
+            // document.querySelector("#vidcontainer").style.display = "none";
+            document.getElementById("cancelButton").style.display = "none";
+            document.getElementById("saveButton").style.display = "block";
+
+            document.getElementById("captureButton").style.display = "none";
+            document.getElementById("againButton").style.display = "block";
+            document.getElementById("againButton").addEventListener("click", startCamera)
+
+        }
+
+        function againFresh() {
+            // document.querySelector("#scrollOne").style.display = "none"
+            stopCamera(stream)
+            // window.imageInput = null;
+            // startCamera();
+            document.getElementById("cameraCapture").style.display = "none";
+            document.getElementById("borderSquare").style.display = "none";
+            document.getElementById("againButton").style.display = "none";
+            document.getElementById("camera").style.display = "block";
+            document.getElementById("captureButton").style.display = "block";
+            document.getElementById("switchCameraButton").style.display = "block";
+
+
+        }
+
+
+        // Function to capture the current frame from the camera and return it as a data URL
+        function captureCurrentFrame() {
+            const canvas = document.createElement('canvas');
+            canvas.width = camera.videoWidth;
+            canvas.height = camera.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(camera, 0, 0, canvas.width, canvas.height);
+            return canvas.toDataURL('image/png');
+        }
+
+        // Function to save the captured photo to the input[type="file"]
+        document.querySelector("#saveButton").addEventListener("click", savePhoto);
+        function savePhoto() {
+            // document.querySelector("#scrollOne").style.display = "none"
+            stopCamera(stream);
+
+
+
+            console.log("savePhoto");
+            captureImageInsideBox()
+            document.querySelector("takepic").style.display = "none"
+            document.body.style.overflow = "auto";
+
+        }
+
+        // Start the camera when the page loads
+        // startCamera();
+
+        // Attach the capture and save functions to the button click event
+        captureButton.addEventListener('click', capturePhoto);
+        // imageInput.addEventListener('change', savePhoto);
+
+
+        document.getElementById("cancelButton").addEventListener("click", () => {
+            stopCamera(stream)
+            document.querySelector("takepic").style.display = "none"
+            document.body.style.overflow = "auto";
+
+
+
+
+
+
+        });
+
+        // make box draggable
+
+        // Function to make the box draggable
+        function makeBoxDraggable() {
+            const box = document.querySelector('#borderSquare');
+            box.style.display = "block";
+            box.style.height = "300px";
+            box.style.width = "300px";
+
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            box.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.clientX - box.getBoundingClientRect().left;
+                offsetY = e.clientY - box.getBoundingClientRect().top;
+            });
+
+            const cameraCapture = document.querySelector('#cameraCapture');
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const cameraRect = cameraCapture.getBoundingClientRect();
+                    console.log(cameraRect)
+                    const maxX = cameraRect.width - box.offsetWidth + cameraRect.left;
+                    const maxY = cameraRect.height - box.offsetHeight + cameraRect.top;
+                    const minX = cameraRect.left;
+                    const minY = cameraRect.top;
+
+                    let left = e.clientX - cameraRect.left - offsetX;
+                    let top = e.clientY - cameraRect.top - offsetY;
+
+                    // Ensure the box stays within the cameraCapture boundaries
+                    left = Math.min(Math.max(left, minX), maxX);
+                    top = Math.min(Math.max(top, minY), maxY);
+
+                    box.style.left = left + 'px';
+                    box.style.top = top + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+        }
+
+
+
+
+        function captureImageInsideBox() {
+            const cameraRect = document.getElementById("cameraCapture").getBoundingClientRect();
+            const boxRect = document.getElementById("borderSquare").getBoundingClientRect();
+
+            // Calculate the position of the box relative to the cameraCapture element
+            const x = boxRect.left - cameraRect.left;
+            const y = boxRect.top - cameraRect.top;
+            const width = boxRect.width;
+            const height = boxRect.height;
+
+            // Create a canvas element to capture the image
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+
+            // Set the canvas size to match the box's dimensions
+            canvas.width = width;
+            canvas.height = height;
+
+            // Draw the part of the image that is inside the box onto the canvas
+            context.drawImage(document.getElementById("cameraCapture"), x, y, width, height, 0, 0, width, height);
+
+            // Convert the canvas content to a data URL
+            const imageDataURL = canvas.toDataURL('image/png');
+
+            // Create an image element with the captured image
+            // const capturedImage = new Image();
+            // capturedImage.src = imageDataURL;
+            // console.log(capturedImage);
+
+            // Execute the callback function with the captured image
+            // callback(capturedImage);
+
+
+            // Convert the captured image to a blob
+            canvas.toBlob(function (blob) {
+                const url = URL.createObjectURL(blob);
+
+
+                const reader = new FileReader();
+                reader.onload = function () {
+                    const base64String = reader.result // .split(',')[1]; // Get the Base64 data
+                    // imageInput.value = base64String; // Set the Base64 string as the input value
+                    // capturedImage.src = URL.createObjectURL(blob); // Display the captured image
+
+                    window.imageInput = base64String;     //wihtout splited
+
+                    // Create an img element
+                    var imgElement = document.createElement('img');
+
+                    // Set the source (src) attribute of the img element to the base64 string
+                    imgElement.src =  base64String; // Replace 'image/png' with the appropriate image type (e.g., 'image/jpeg' for JPEG images)
+
+                    document.querySelector("#lastShot").innerHTML = ""
+                    document.querySelector("#lastShot").appendChild(imgElement)
+
+
+
+
+                    console.log(blob, url,)
+                    console.log(window.imageInput);
+
+                };
+
+                reader.readAsDataURL(blob);
+            }, 'image/png');
+
+
+
+
+
+
+        }
+
+
+
+
 
 
 

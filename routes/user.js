@@ -7,7 +7,7 @@ const JWT_CONST = "TG^$3vT^5rb7r%^R56 r%^f   6tr 56r65r 56rf56F %^4161hg 4c6 tT%
 
 const User = require('../models/user');
 
-const { requireAuth, requireAdminAbility, updateUser } = require('../middleware/authMiddleware');
+const { requireAuth, requireAdminAbility, updateUser, getUser } = require('../middleware/authMiddleware');
 
 const { getMain } = require('../middleware/mainMiddleware.js');
 
@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({ id: user._id }, JWT_CONST);
         res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
         // res.json({ user: user._id });
-        res.json({ status: 200, message: "user found" });
+        res.json({ status: 200, message: "Loggined Succesfully" });
         console.log("user found");
 
         updateUser(user);
@@ -52,32 +52,53 @@ router.get('/logout', (req, res) => {
     const token = "";
     res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
     // res.json({ status: 200, message: "user logged out" });
-    res.render('login');
+    // res.render('login');
+    res.redirect("/")
 
 });
 
+// router.get('/blank', (req, res) => {
+
+//     res.render("blank");
+// });
 
 
-router.use(requireAuth, requireAdminAbility);
+
+router.use(requireAuth);
+
+router.get('/me', (req, res) => {
+
+    var user = getUser(req.userid);
+    
+
+
+    res.json({ status: 200, payload: user })
+    // console.log("/me final");
+
+
+})
 
 
 
+router.use(requireAdminAbility);
 
 router.get('/add', (req, res) => {
     res.render('signup');
 });
 
 router.get('/access', (req, res) => {
+    console.log("/access start")
     User.find({}).exec((err, allUsers) => {
-        
+
         if (err) {
             console.log(err);
         }
         else {
             console.log(allUsers, "all users");
             // res.json(allUsers);
-       
-            res.render('access', {data: allUsers});
+
+            // res.render('access', {data: allUsers});     // was when using ejs renderer to render but changed to calling at /user/accounts
+            res.render('access');
         }
 
 
@@ -119,20 +140,30 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/accounts', (req, res) => {
-
-    User.find({}).exec((err, allUsers) => {
-
+    let allUsers = []
+    User.find({}).exec((err, userS) => {
         if (err) {
             console.log(err);
         }
         else {
-            console.log(allUsers, "all users");
+            console.log(userS)
+            userS.forEach(user => {
+                user.psd = null
+                if (user.userLevel !== "admin") {
+
+                    allUsers.push(user)
+                }
+                
+
+            });
+            
             res.json(allUsers);
         }
 
 
     });
-
+    
+    
 
 
 
@@ -180,11 +211,12 @@ router.post('/_main', async (req, res) => {
             doc.save(function (err, updatedDoc) {
                 if (err) {
                     console.log(err)
-                    res.end()
+                
+                    res.json({status: 400, message : `Err Happened`});
                 } else {
                     updateUser(updatedDoc);
                     // console.log(updatedDoc)
-                    res.json(updatedDoc)
+                    res.json({status: 200, message : `Updated List Succesfully for ${updatedDoc.name}`});
                 }
             });
 

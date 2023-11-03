@@ -24,23 +24,26 @@ function requireAuth(req, res, next) {
                 //     enumerable: true,
                 // });
                 console.log(decodedToken)
-                console.log(allUsers)
+                // console.log(allUsers)
 
                 var user = allUsers.find(user => user.id === decodedToken.id);
-                console.log(user);
+                // console.log(user);
                 if (user) {
-                // req.userAbility = "admin";
+                    // req.userAbility = "admin";
                     req.userAbility = user.userLevel;
-                req.userid = decodedToken.id;
+                    req.userid = decodedToken.id;
+                    next();
                 }
                 else {
-
-
-                    const token = "";
-                    res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+                    next();
+                    return;
+                  
+                    
+                    
+                    // const token = "";
+                    // res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
                     res.render('login');
                 }
-                next();
             }
         })
     }
@@ -54,10 +57,12 @@ function requireAuth(req, res, next) {
 
 
 
-function updateUser(userData) {
+ function updateUser(userData) {
+    userData.psd = null;
 
 
-    console.log("update user called", userData);
+    // console.log("update user called", userData);
+
     const index = allUsers.findIndex(user => user.id === userData.id);
     if (index !== -1) {
         // User with the specified ID was found at index 'index'
@@ -67,9 +72,9 @@ function updateUser(userData) {
     } else {
         // User with the specified ID was not found
         allUsers.push(userData);
-        console.log('User not found ', ' And oushed the user');
+        console.log('User not found ', ' And poushed the user');
     }
-    console.log(allUsers);
+    // console.log(allUsers);
 
 
 };
@@ -77,9 +82,10 @@ function updateUser(userData) {
 function getUser(id) {
 
     var user = allUsers.find(user => user.id === id);
+    // console.log(user)
     return user;
 
-    
+
 }
 
 function requireAdminAbility(req, res, next) {

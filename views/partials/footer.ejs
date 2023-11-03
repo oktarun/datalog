@@ -1,0 +1,165 @@
+<footer>
+
+    
+    
+    
+    <div id="hamburgerContainer"> <!-- Hamburger icon -->
+    
+
+        <!-- Menu -->
+        <div class="menu">
+            <ul>
+                <!-- <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li> -->
+                <li><a href="/">Table</a></li>
+                <!-- <li><a href="/user/blank">Blank</a></li> -->
+                <li><a href="/user/add">Add User</a></li>
+                <li><a href="/user/access">Access</a></li>
+                <li><a href="/workerprofile/">Add Worker</a></li>
+            
+            </ul>
+        </div>
+
+        <!-- overlayToggle -->
+        <div class="overlayToggle"></div>
+    </div>
+
+</footer>
+<style>
+    /* * {
+        background-color: black;
+        color: white;
+    } */
+
+
+    /* Menu styles */
+    .menu {
+        display: none;
+        /* position: fixed; */
+        /* top: 0;
+        left: 0%; */
+        /* Move the menu to the left side and make it 80% width */
+        /* height: 100px; */
+        width: 100%; 
+        /* Set the menu width to 80% */
+        /* background-color: #333; */
+        /* padding-top: 60px;
+        transition: 0.4s; */
+        /* z-index: 2; */
+
+       
+
+    }
+    
+    .menu ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        margin: 20px;
+        
+   
+        /* text-align: center;
+        justify-content: center;  */
+        
+    }
+    
+    .menu ul li {
+        padding: 15px;
+        /* text-align: center; */
+        
+        margin: auto;
+
+
+    
+
+
+        
+    }
+
+    
+
+    .menu ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 20px;
+
+       
+    }
+
+    /* overlayToggle styles */
+    /* .overlayToggle {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+    } */
+
+    .show {
+        display: block
+    }
+
+    .open {
+        display: block
+        /* display: flex; */
+    }
+
+    /* End toggle */
+
+
+
+
+    .nodisplay {
+        display: none;
+    }
+</style>
+
+<script>
+
+    function activateFooter() {
+       
+
+        // if(mode){
+
+            document.querySelector(".menu").style.display = "block";
+        // }
+
+
+        
+    }
+
+
+   
+
+        // for toggle
+        // const menuToggle = document.querySelector(".menu-toggle");
+        // const menu = document.querySelector(".menu");
+        // const overlayToggle = document.querySelector(".overlayToggle");
+
+        // menuToggle.addEventListener("click", () => {
+        //     // Toggle the "open" class on the menu to show/hide it
+        //     menu.classList.toggle("open");
+        //     // Toggle the "show" class on the overlayToggle to show/hide it
+        //     overlayToggle.classList.toggle("show");
+        //     // Toggle the "open" class on the menu toggle icon to switch between hamburger and close icon
+        //     menuToggle.classList.toggle("open");
+        // });
+        // overlayToggle.addEventListener("click", ()=>{
+        //  menu.classList.toggle("open");
+           
+        //     overlayToggle.classList.toggle("show");
+           
+        //     menuToggle.classList.toggle("open");
+        // })
+        // // end toggle
+</script>

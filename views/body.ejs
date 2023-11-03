@@ -7,9 +7,36 @@
     <title>Document</title>
 
     <style>
-        * {
+        /* * {
             background-color: black;
             color: whitesmoke;
+        } */
+
+        body {
+            background-color: black;
+            overflow-x: hidden;
+        }
+
+
+
+        /* Add a slim scroll bar with a custom width */
+        ::-webkit-scrollbar {
+            width: 8px;
+            /* Adjust the width as needed */
+        }
+
+        /* Customize the appearance of the scroll bar track */
+        ::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            /* Change the background color as needed */
+        }
+
+        /* Customize the appearance of the scroll bar thumb (the draggable part) */
+        ::-webkit-scrollbar-thumb {
+            background-color: #888;
+            /* Change the thumb color as needed */
+            border-radius: 4px;
+            /* Add rounded corners to the thumb */
         }
 
 
@@ -28,7 +55,25 @@
             /* Firefox */
             -ms-overflow-style: none;
             /* Internet Explorer and Edge */
+            /* margin: 0 0 0 10px; */
+
+            background-color: white;
+
+            backdrop-filter: blur(10px);
+            /* Apply a blur effect to the background */
+            background-color: black;
+
+
         }
+
+        /* #gram-list {
+            background: linear-gradient(to bottom, #ffffff, #973200, #000000, #9f5500, #ffffff, #a36800, #000000);
+            text-transform: uppercase;
+        }
+
+        #wdfk {
+            background: linear-gradient(to bottom, #000000, #ba5b5b, #dbd6d6, #2f2d2d, #ffffff, #000000, #ffffff);
+        } */
 
         .container::-webkit-scrollbar {
             display: none;
@@ -38,64 +83,257 @@
         .item {
             flex: 0 0 auto;
             /* Don't grow or shrink items */
-            width: 100px;
+            min-width: 70px;
+            width: max-content;
             /* Set the width of each item */
-            height: 50px;
+            height: 40px;
             margin-right: 10px;
             /* Add space between items */
-            background-color: rgb(29, 27, 27);
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
             border: 1px solid gray;
-            display: inline-block;
+            display: inline-flex;
             /* Ensure items stay inline */
+            align-items: center;
+            justify-content: center;
+            /* Center the content both vertically and horizontally */
+
+            /* background-color: transparent; */
+            /* overflow: hidden; */
+            /* Hide overflow to prevent clipping */
+
+            margin: 15px 15px 0px 0px;
+
+
+
+
+
+
+
+
         }
 
-        .item1 {
-            flex: 0 0 auto;
-            /* Don't grow or shrink items */
-            width: 100px;
-            /* Set the width of each item */
-            height: 50px;
-            margin-right: 10px;
-            /* Add space between items */
-            background-color: rgb(0, 0, 0);
-            border: 1px solid gray;
-            display: inline-block;
-            /* Ensure items stay inline */
+        /* .item:first-letter{
+            text-transform: uppercase;
+        } */
+
+        .item>p {
+            margin: 0;
+            /* Remove margin to center vertically */
+            text-align: center;
+            /* Center the text horizontally */
+
+            width: 100%;
+
+
+            font-size: larger;
+
+            /* background-color: rgb(255, 255, 255); */
+            /* background-color: black; */
+            z-index: 1;
+
+            /* mix-blend-mode:exclusion; Apply blend mode to <p> content */
+            /* color: transparent; */
+            pointer-events: none;
+
+
         }
+
+        .clicked {
+
+            /* background-color: rgb(0, 0, 0);
+            color: white;
+            border-top: 1px white solid;
+            border-left: 1px white solid;
+            border-right: 1px white solid;
+            border-bottom: rgb(0, 0, 0) solid 1px; */
+
+            background: linear-gradient(to bottom, #7e7373, #000000);
+
+            border-color: #000000;
+
+
+
+
+
+        }
+
+        .clicked>p {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: white;
+            font-weight: bolder;
+
+        }
+
+        /* #gram-list>.clicked {
+            background: linear-gradient(to bottom, #7e7373, #000000);
+
+            border-color: #000000;
+
+
+        }
+
+        #gram-list>.clicked>p {
+            background-image: linear-gradient(to bottom, #ffffff, #ffffff);
+            
+           
+
+
+        }
+
+        #wdfk>.clicked {
+            background: linear-gradient(to bottom, #7e7373, #000000);
+
+            border-color: #000000;
+
+
+        }
+
+        #wdfk>.clicked>p {
+            background-image: linear-gradient(to bottom, #ffffff, #ffffff);
+
+
+        } */
+
+
+        /* .item>p::before {
+            content: ""; */
+        /* Create a pseudo-element */
+        /* position: absolute; */
+        /* Position it absolutely to the <p> */
+        /* display: inline-block; */
+        /* top: 35%; */
+        /* top: 0;
+            left: 0; */
+        /* width: 100%; */
+        /* height: 0; */
+        /* height: 100%; */
+        /* Initially set height to 0 */
+        /* background-color: rgb(255, 255, 255); */
+        /* Set background color for the pseudo-element */
+        /* opacity: 1; */
+        /* Initially set opacity to 1 (visible) */
+        /* transition: height 0.3s, opacity 0.9s, top 0.3s; */
+        /* Add transitions for height and opacity */
+        /* z-index: -2;
+        } */
+
+        /* .item:hover>p::before { */
+        /* height: 100%; */
+        /* transform: scaleX(1) scaleY(1); Expand the pseudo-element to 100% width and height */
+        /* Grow the pseudo-element to 100% height on hover */
+        /* opacity: 1;
+            height: 100%; */
+        /* top: 0; */
+        /* Hide the pseudo-element on hover */
+        /* } */
+        /* 
+        .item>p::after {
+            content: ""; */
+        /* Create a pseudo-element */
+        /* position: absolute; */
+        /* Position it absolutely to the <p> */
+        /* display: inline-block; */
+        /* top: 50%; */
+        /* top: 0;
+            left: 0;
+            width: 100%;
+            height: 0; */
+        /* height: 100%; */
+        /* Initially set height to 0 */
+        /* background-color: rgb(255, 255, 255); */
+        /* background-color: transparent; */
+        /* Set background color for the pseudo-element */
+        /* opacity: 1; */
+        /* Initially set opacity to 1 (visible) */
+        /* transition: height .5s, opacity 0.9s, top 0.5s,  border-radius .5s ease-out; */
+        /* Add transitions for height and opacity */
+        /* z-index: 2; */
+        /* mix-blend-mode: red; Apply a blend mode to make it visible only through transparent parts */
+        /* border: 0 solid red; */
+        /* border-radius: 100%; */
+        /* mix-blend-mode: difference; 
+        } */
+
+        /* .item:hover>p::after { */
+        /* height: 100%; */
+        /* transform: scaleX(1) scaleY(1); Expand the pseudo-element to 100% width and height */
+        /* Grow the pseudo-element to 100% height on hover */
+        /* opacity: 1;
+            height: 100%;
+            top: 0;
+            border-radius: 0; */
+
+        /* Hide the pseudo-element on hover */
+        /* } */
+        /* .item>p:hover {
+
+            height: 100%;
+        } */
+
+        /* .clicked>p::before {
+            background-color: grey;
+
+        }
+        .clicked:hover>p::after {
+            background-color: grey;
+
+        } */
+
+
+
+
+
+        /* .item1 {
+            flex: 0 0 auto; */
+        /* Don't grow or shrink items */
+        /* width: 100px; */
+        /* Set the width of each item */
+        /* height: 50px;
+            margin-right: 10px; */
+        /* Add space between items */
+        /* background-color: rgb(255, 255, 255);
+        border: 1px solid gray;
+        display: inline-block; */
+        /* Ensure items stay inline */
+        /* } */
 
         .itemlast:nth-child(1) {
             order: 2;
             /* Move the first item to the end */
+            display: none;
+            /*  if admin make it block  */
         }
 
-        .item1 {
-            order: 2;
-            /* Move the first item to the end */
-        }
+        /* .item1 {
+            order: 2; */
+        /* Move the first item to the end */
+        /* } */
 
 
         /* Add this CSS to style the overlay */
         /* For Adder*/
-        .overlay {
+        /* .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Semi-transparent black overlay */
-            z-index: 1000;
-            /* Ensure the overlay appears above other elements */
-            display: none;
-            /* Hide the overlay by default */
-        }
+            background-color: rgba(0, 0, 0, 0.5); */
+        /* Semi-transparent black overlay */
+        /* z-index: 1000; */
+        /* Ensure the overlay appears above other elements */
+        /* display: none; */
+        /* Hide the overlay by default */
+        /* } */
 
         .overlay-content {
             position: absolute;
             top: 50%;
-            left: 50%;
-            height: 25%;
-            width: 25%;
+            left: 30%;
+            height: 40%;
+            width: 50%;
             /* transform: translate(-50%, -50%); */
             background-color: white;
             padding: 20px;
@@ -103,28 +341,59 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             z-index: 1001;
             /* Ensure the content appears above the overlay */
+            background-color: grey;
+
+
+
 
         }
 
-        #minimizeButton {
+        .overlay-content>form>input {
+            height: 100px;
+            width: 70%;
+            font-size: larger;
+
+
+
+
+        }
+
+        .overlay-content>form>button {
+            height: 100px;
+            width: 25%;
+            font-size: larger;
+            background-color: rgb(117, 226, 117);
+
+
+
+
+        }
+
+
+        /* #minimizeButton {
             position: absolute;
             top: 10px;
             right: 10px;
             background-color: #f0f0f0;
-            border: none;
-            /* border-radius: 5px;
+            border: none; */
+        /* border-radius: 5px;
             padding: 50px 10px; */
-            /* margin: 20px; */
-            cursor: pointer;
-        }
+        /* margin: 20px; */
+        /* cursor: pointer;
+        } */
 
         /* Css for table*/
         .grid-container {
             width: calc(100%-5);
             /* Set a fixed width for the container */
-            overflow: auto;
+            overflow: hidden;
             /* Allow scrolling if content overflows */
-            border: 1px solid black;
+            border: 1px solid rgb(0, 0, 0);
+            /* min-height: 100%;
+            max-height: fit-content; */
+            margin-top: 20px;
+            min-height: 450px;
+            max-height: auto;
 
         }
 
@@ -133,39 +402,131 @@
             /* Hide the scroll bar in Webkit browsers (Chrome, Safari, etc.) */
         }
 
-        #gridtable {
+        #gridTable {
+
             display: flex;
             flex-direction: column;
-            border: 1px solid black;
-            overflow-x: auto;
+            width: 100%;
+            overflow: auto;
             /* Enable horizontal scrolling */
-            width: max-content;
+            /* width: max-content; */
             white-space: nowrap;
             /* Prevent line breaks within cells */
-            border: 1px solid gray;
-            background-color: bisque;
+            /* padding: 20px; */
+            /* border: 1px solid rgb(255, 255, 255); */
+            background: linear-gradient(to top, bisque, bisque);
         }
+
+        #gridTable::-webkit-scrollbar {
+            display: none;
+            /* Hide the scroll bar in Webkit browsers (Chrome, Safari, etc.) */
+        }
+
+        /* #gridTable tr :not(.tableRowHeader){ */
+        /* padding: 25px 0; */
+        /* margin: 25px 0 ; */
+        /* } */
+
 
 
         /* worker table  */
         .workerTable tr {
-            height: 45px;
+            height: 50px;
             display: flex;
             flex-direction: row;
             /* or column, depending on your layout */
-            margin: 10px 0;
-            border: #b60000 solid .5px;
+            margin: 8px 0;
+            border: #ffffff solid .5px;
+            width: max-content;
+            /* width: fit-content; */
+            padding: 2px;
+            /* background: grey; */
+
+            /* box-sizing: content-box;
+            border-bottom: 5px solid red; */
+
+
         }
 
         .workerTable tr td {
             position: relative;
-            height: 100%;
+            height: 90%;
             /* border: 1px solid gray; */
-            margin: 0 5px;
-            width: 150px;
+            /* margin: 15px 5px; */
+            width: 100px;
+            /* width: fit-content; */
+            margin: 0px 15px 5px 0px;
+            background-color: transparent;
+            /* font-size: 20px; */
         }
 
+        .workerTable tr td.pay {
+            position: relative;
+            height: 90%;
+            /* border: 1px solid gray; */
+            /* margin: 15px 5px; */
+            width: fit-content;
+            /* width: fit-content; */
+            /* margin: 0px 15px 5px 0px; */
+            background-color: transparent;
+            /* font-size: 20px; */
+
+            display: inline-block;
+            /* max-width: 200px; */
+
+
+            /* display: inline-block; */
+            overflow: hidden;
+            /* transition: max-width .5s ease; */
+        }
+
+        .workerTable tr td.pay div {
+            transition: width 0.5s ease;
+
+
+
+        }
+
+
+
+        .pay-enable {
+
+            width: fit-content !important;
+            margin: 0px 15px 5px 0px !important;
+
+
+        }
+
+        .pay-disable {
+
+            /* max-width: 0px     !important;   */
+            margin: 0 0 0 0 !important;
+
+            pointer-events: none;
+
+        }
+
+        .pay-disable>div {
+
+            width: 0px !important;
+
+
+        }
+
+
+        .workerTable tr td:nth-child(2) {
+
+            position: sticky;
+            left: 0;
+            background-color: #f1f1f1;
+            /* Change the background color as needed */
+            z-index: 1;
+
+        }
+
+
         .workerTable tr td input {
+
             min-width: 100%;
             width: 100%;
             /* width: calc(100% - 10px); */
@@ -176,7 +537,20 @@
             text-align: center;
             border: none;
             /* Remove border to avoid extra width */
+
+            background-color: transparent;
+            font-weight: bolder;
+            font-size: small;
+
+
+
+            /* border-left: black solid .1px ; */
+            /* border-right: black solid .1px ; */
         }
+
+        /* .workerTable tr:not(.tableRowHeader) td input {
+            background-color: rgba(114, 203, 200, 0.1);
+        } */
 
         /* reasonTable */
 
@@ -189,8 +563,10 @@
             display: flex;
             flex-direction: row;
             /* or column, depending on your layout */
+            /* padding: 10px 0; */
             margin: 10px 0;
-            border: #b60000 solid .5px;
+            border: #ffffff solid .5px;
+            width: max-content;
         }
 
         .reasonTable tr td {
@@ -223,6 +599,17 @@
 
         }
 
+        .reasonTable tr td:first-child {
+            width: fit-content;
+        }
+
+        .reasonTable tr td input[axis-x="0"] {
+            min-width: 100px;
+            max-width: 150px;
+            width: 50px;
+            font-weight: bolder;
+        }
+
         .reasonTable tr td textarea {
             width: 100%;
             display: flex;
@@ -246,6 +633,75 @@
             padding: 5px 15px 5px 5px;
             font-size: large;
             /* max-height: 300px; */
+        }
+
+        /*  for rop of table */
+        .tableRowHeader {
+            /* CSS styles for the specific <tr> element with axis-y="0" */
+            background-color: #f0f0f0;
+            font-weight: bolder;
+            /* Example background color */
+        }
+
+        .tableRowHeader>.pay>div {
+            background-color: #f0f0f0;
+            ;
+        }
+
+
+        tr[axis-y="0"] td input {
+            font-weight: bolder;
+            font-size: medium;
+        }
+
+        td.atten {
+            max-width: fit-content;
+        }
+
+        .workerTable>tr:nth-child(odd):not(.tableRowHeader) {
+            /* background-color: rgb(207 148 171 / 57%); */
+            /* padding: 10px; */
+            box-shadow: 0 -8px 0 0 #ccc2c2 inset;
+            /* This creates a shadow only at the bottom */
+        }
+
+        .workerTable>tr:nth-child(even):not(.tableRowHeader) {
+            background-color: rgb(155 144 152 / 32%);
+            /* padding: 10px; */
+            box-shadow: 0 -8px 0 0 #efb5b5 inset;
+            /* This creates a shadow only at the bottom */
+        }
+
+        #addToTable {
+            margin-top: 25px;
+            width: 100%;
+            /* display: none; */
+
+            height: 100px;
+            box-sizing: border-box;
+            border: 1px black solid;
+
+
+
+
+            transition: max-height .4s ease;
+        }
+
+        #addToTable.off {
+            max-height: 1px;
+
+
+            /* background-color: transparent; */
+            /* border: 1px solid transparent; */
+            pointer-events: none;
+
+        }
+
+        #addToTable.on {
+
+            max-height: 100px;
+
+
         }
 
 
@@ -277,14 +733,47 @@
             justify-content: space-around;
         }
 
+        .reccomendDivHolder {
+            display: flex;
+            /* Use Flexbox layout */
+            flex-direction: column;
+            /* Stack children vertically */
+            display: none;
+            position: fixed;
+            top: 20%;
+            width: 100%;
+            height: 80%;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .reccomendDivHolder>input {
+            display: inline-block;
+            width: 100%;
+            height: 8%;
+        }
+
+        .reccomendDivHolder>.reccomendDiv {
+            width: 100%;
+            position: relative;
+            /* top: 0; */
+            height: 92%;
+            /* flex: 1; */
+            overflow-y: scroll;
+            overflow-x: hidden;
+
+        }
+
         /* Style for each recommendation box */
         .recommendation-box {
-            width: 300px;
+            width: 100%;
             background-color: #f0f0f0;
             border: 1px solid #ddd;
-            margin: 10px;
-            padding: 10px;
+            /* margin: 10px;
+            padding: 10px; */
             display: flex;
+            /* height: fit-content; */
+            height: 200px;
         }
 
         /* Style for the user image */
@@ -319,37 +808,134 @@
             pointer-events: none;
         }
 
+        /* for attenadscne svg */
+
+        td.atten::before {
+            content: "";
+            border: rgba(255, 0, 0, 0.2) .2px solid;
+            position: absolute;
+            top: 0;
+            right: 0;
+            /* bottom: 0; */
+            /* left: 0; */
+
+            height: 100%;
+            width: var(--present-beforeDisplay);
+            ;
+
+            /* background-color: rgba(74, 102, 137, 0.2); */
+            background: linear-gradient(to right, #ffffff, #dedbda, #b6aeae, #8f8881, #8d8585, #c4c0b8, #978f8f);
+            /* mix-blend-mode: difference; Apply the difference blend mode */
+
+            /* Use rgba to set transparency (0.2 for example) */
+            opacity: .3;
+            /* Keep opacity at 1 for better blending */
+            pointer-events: none;
+            z-index: 2;
+
+            /* display: var(--present-beforeDisplay); */
+            display: block;
+            transition: width 0.5s ease-in-out;
+
+
+
+
+
+        }
+
+        .tableRowHeader>.atten::before {
+            display: none;
+        }
+
+
+        td>svg,
+        .atten {
+            width: 100%;
+            width: 60px;
+            height: 100%;
+            pointer-events: var(--present-svgPointerEvents);
+
+        }
+
         #switch-circle {
             pointer-events: none;
+            /* color: red; */
+
+
 
         }
 
         #switch>rect {
             pointer-events: none;
+            fill: whitesmoke;
         }
+
+
 
         /* for dihaadi */
-        #dihaadi {
+        #dihaad {
             width: 100%;
             height: 30px;
+            /* margin: 10px 0; */
+            padding: 10px 0;
+            background: linear-gradient(to bottom, #000000, rgb(111, 107, 102), bisque);
+            display: flex;
+            /* Use flexbox to align items horizontally */
+            align-items: center;
+            /* Vertically center items */
 
         }
 
-        #dihaadi>input {
+        #dihaad>p {
+            width: fit-content;
+            height: 100%;
+            margin: 0;
+            color: white;
+            background-color: rgba(211, 165, 165, 0.2);
+
+
+
+        }
+
+        /* #dihaad >p >input{
+           width: 20px;
+           height: 20px;
+        } */
+
+        #dihaad>input {
+
+            margin-left: auto;
+            /* Move this item to the end */
+
             /* margin-right: 0px; */
+            /* order: 2; */
             width: 25%;
             height: 100%;
             position: relative;
             /* Position the input absolutely */
-            right: 0;
+            /* right: 0; */
+            /* left: 75%; */
             /* Align the input to the right */
+            display: inline;
+
+            background-color: rgb(0, 0, 0);
+            color: white;
+            font-weight: bolder;
+            font-size: larger;
+            font-stretch: semi-expanded;
 
         }
 
 
 
         /* for pay */
-        .pay,
+        .pay {
+            height: 100%;
+            width: fit-content;
+            /* display: none; */
+
+        }
+
         .pay>div {
             height: 100%;
             width: 50px;
@@ -365,14 +951,10 @@
             align-items: center;
             justify-content: center;
 
-        }
-
-
-        .pay>div {
             pointer-events: none;
-
-
         }
+
+
 
         .pay {
             margin: 0 0;
@@ -384,13 +966,7 @@
 
 
 
-        td>svg,
-        .atten {
-            /* width: 100%; */
-            width: 60px;
-            height: 100%;
 
-        }
 
 
 
@@ -403,14 +979,26 @@
         #payWindow {
             /* position: relative; */
             /* top: 500px; */
-            margin-bottom: 200px;
-            height: 201px;
-            /* width: 100%; */
+            /* margin-bottom: 200px; */
+            /* height: 201px; */
+            height: auto;
+            /* Allow the container to expand with content */
+            width: 100%;
             display: none;
+            position: fixed;
+            bottom: 0;
+            /* top:201px; */
+            z-index: 10;
+            border: 5px red solid;
+            flex-direction: column;
+            /* Added to stack child elements vertically */
+
+
 
         }
 
         #pay-worker-profile {
+            flex: 1;
             display: flex;
             flex-direction: row;
             /* align-items: center; */
@@ -467,6 +1055,7 @@
         /* pay form */
 
         #pay-form {
+            flex: 2;
             width: 100%;
         }
 
@@ -499,12 +1088,14 @@
             width: 100%;
             height: 75px;
             /* border: 1px solid red; */
+            background-color: bisque;
         }
 
         .pay-control>.controller {
             width: 45%;
             height: 100%;
-            border: 1px solid red;
+            border: 1px solid rgb(8, 8, 8);
+
 
 
             /* for centering text */
@@ -513,6 +1104,13 @@
             align-items: center;
 
 
+
+        }
+
+        .pay-control>span:first-child {
+            /* Your styles for the first div element */
+            /* For example: */
+            background-color: rgb(255, 255, 255);
 
         }
 
@@ -533,6 +1131,7 @@
         /* reason adder */
 
         #reasonAdder {
+            /* position: fixed; */
             width: 100%;
             height: fit-content;
             border: 1px solid rgb(153, 255, 19);
@@ -541,6 +1140,10 @@
             flex-direction: column;
             /* justify-content: space-around; */
             /* align-items: center; */
+            z-index: 10;
+            position: fixed;
+            /* top: 25%; */
+            bottom: 0;
         }
 
         #reasonDate {
@@ -584,6 +1187,7 @@
         }
 
         #reasonReason>textarea {
+
             width: 100%;
             height: inherit;
 
@@ -592,9 +1196,19 @@
             text-align: inherit;
             resize: none;
             box-sizing: border-box;
-            
+
             padding: 20px 0 0 0;
 
+            /* word-spacing: 509px; Adjust the spacing as needed */
+
+            /* line-height: 2; Adjust the spacing as needed */
+
+            line-height: 2;
+            /* Adjust the line height to add spacing between lines */
+            letter-spacing: 2px;
+            /* Adjust the letter spacing to add spacing between letters */
+            /* padding: 10px; */
+            /* Optional: Add padding for better readability */
         }
 
         #reasonEssents>#reasonAmount {
@@ -674,6 +1288,29 @@
             width: 100%;
             height: 100px;
         } */
+        blurer {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent black background */
+            z-index: -9;
+            display: none;
+
+        }
+
+
+        .nodisplay {
+            display: none;
+        }
+
+        :root {
+            --present-svgPointerEvents: none;
+            --present-beforeDisplay: 100%;
+
+        }
     </style>
 </head>
 
@@ -698,15 +1335,18 @@
     <!-- table shit -->
 
     <div class="grid-container">
-        <div id="dihaad"><input id="dihaadi" type="num" value="" placeholder="Please add dihaadi"></div>
+        <div id="dihaad">
+            <p>Enter Master Mode<input type="checkbox" id="masterMyCheckbox"></p>
+            <input id="dihaadi" type="num" value="" placeholder="Please add dihaadi">
+        </div>
         <table id="gridTable">
             <!-- Your table rows and cells go here -->
         </table>
+        <button id="addToTable" class="off">Add Worker</button>
     </div>
 
 
 
-    <button id="addToTable">Add Worker</button>
 
 
     <!-- payment shit  -->
@@ -722,7 +1362,7 @@
                 <p><strong>Father Name:</strong> <span></span></p>
             </div>
         </div>
-        <hr>
+        <!-- <hr> -->
 
 
 
@@ -761,6 +1401,11 @@
     </div>
 
     <!-- <input id="kyhua"> -->
+    <div class="reccomendDivHolder">
+        <input type="text">
+
+        <div class="reccomendDiv"></div>
+    </div>
 
 </body>
 
@@ -768,8 +1413,55 @@
 <!-- Add this div at the end of your body -->
 <div id="overlay" class="overlay" style="display: none;"></div>
 
-</body>
+<blurer onclick="unblur()"></blurer><!-- used to create no clickable background when overview-->
+
+
 <script>
+    // Get the root element (usually <html> or <body>)
+    const root = document.documentElement;
+
+
+    // to enter master mode
+    document.getElementById("masterMyCheckbox").addEventListener("change", masterE);
+    function masterE(e) {
+
+      
+        console.log(e.target.checked);
+        state = e.target.checked;
+
+        if (!state) {
+            document.getElementById("addToTable").classList.replace("on", "off")
+            document.querySelectorAll(".pay").forEach((el) => {
+                // el.style.display = "none";
+                el.classList.replace("pay-enable", "pay-disable");
+                // el.classList.remove("pay-enable");
+            });
+            root.style.setProperty('--present-svgPointerEvents', 'none'); // Change the value to green
+            root.style.setProperty("--present-beforeDisplay", "100%"); // Change the value to green
+
+
+
+
+
+        }
+
+        if (state) {
+            document.getElementById("addToTable").classList.replace("off", "on")
+            document.querySelectorAll(".pay").forEach((el) => {
+                // el.style.display = "inline-block";
+                el.classList.replace("pay-disable", "pay-enable");
+            });
+            // Update the value of the CSS variable
+            root.style.setProperty('--present-svgPointerEvents', 'auto'); // Change the value to green
+            root.style.setProperty("--present-beforeDisplay", "0%"); // Change the value to green
+
+
+        }
+
+
+
+
+    };
 
 
 
@@ -811,8 +1503,9 @@
     };
 
     function creatingPaymentPage(worker, yValue) {
+        blur();
         paywindow = document.querySelector("#payWindow");
-        paywindow.style.display = "block";
+        paywindow.style.display = "flex";
 
         // payworker profile
         paywindow.querySelector("#pay-worker-photo").style.backgroundImage = `url(${worker.image})`;
@@ -851,7 +1544,7 @@
         console.log(cancelButton, payButton)
         cancelButton.addEventListener("click", (event) => {
             console.log(event.target);
-            paywindow.style.display = "none";
+            unblur();
         });
 
 
@@ -870,6 +1563,7 @@
             })
                 .then(response => response.json())
                 .then(result => {
+                    message(result.status, result.message)
                     console.log(result);
                     // paywindow.style.display = "none";
                     // location.reload();
@@ -919,7 +1613,7 @@
 
             cell.setAttribute("class", "atten");
             div.setAttribute("class", "atten");
-            div.textContent = "Present/Absent";
+            div.textContent = "";
             cell.appendChild(div);
 
 
@@ -963,6 +1657,9 @@
 
     //reason adder
     function addReason(params) {
+        //activating Blurer
+        blur();
+
         console.log("add reason");
 
         div = document.getElementById("reasonAdder");
@@ -1009,7 +1706,8 @@
         // reasonControll
 
         div.querySelector("#reasonCancel").addEventListener("click", (event) => {
-            console.log(event.target)
+            console.log(event.target);
+            unblur();
 
             div.style.display = "none"
         });
@@ -1029,6 +1727,7 @@
             })
                 .then(res => res.json())
                 .then(response => {
+                    message(response.status, response.message)
                     console.log(response);
                     div.style.display = "none";
                     // location.reload();
@@ -1087,11 +1786,30 @@
     }
 
 
+    function unblur() {
+        document.body.style.overflow = "auto";
+        document.querySelector("blurer").style.zIndex = "-9";
+        document.querySelector("blurer").style.display = "none";
+        document.querySelector(".reccomendDivHolder").style.display = "none";
+        document.querySelector("#reasonAdder").style.display = "none";
+        document.querySelector("#payWindow").style.display = "none";
+        document.querySelector(".overlay-content").style.display = "none";
+
+
+
+    }
+
+    function blur() {
+        document.querySelector("blurer").style.zIndex = "9";
+        document.querySelector("blurer").style.display = "block";
+        document.body.style.overflow = "hidden";
+
+    }
 
 
     // grid maker it will make grid and arrange data into them acc to type of database, run and data from function gettable(doc_id);
     function gridmaker(dataTable, yValue) {      // may be try to add aworker as totally different opotion under table
-        document.querySelector("#payWindow").style.display = "none";
+        gridTable.innerHTML = "";
         window.dataTable = dataTable;
         // console.log(dataTable)
         var numRows = dataTable[0][2]; // Number of rows (x-axis)
@@ -1108,12 +1826,14 @@
             gridTable.classList.remove("workerTable");
 
 
-            document.getElementById("dihaad").style.display = "none";
+            document.getElementById("dihaadi").style.display = "none";
             // add an button for this
-            addToTable = document.getElementById("addToTable");    // declaraing
+            addToTableOld = document.getElementById("addToTable");    // declaraing
+            // removing all other event listner form add to Table
+            addToTable = addToTableOld.cloneNode(true);
+            addToTableOld.parentNode.replaceChild(addToTable, addToTableOld);
 
             addToTable.addEventListener("click", addReason);
-            addToTable.removeEventListener("click", getWorker);
             addToTable.innerHTML = "Add Reason";
 
 
@@ -1128,7 +1848,7 @@
                 var row = document.createElement("tr");
                 row.setAttribute("axis-y", y);
                 if (y == 0) {
-                    row.classList.add("reasonHeader");
+                    row.classList.add("tableRowHeader");
 
                 }
 
@@ -1139,15 +1859,15 @@
 
                     if (y >= 1) {
 
-                        if (x == 0) {
+                        if (x === 0) {
                             date = new Date(dataTable[n].date);
 
                             var cell = createInputCell(x, y, date.toLocaleDateString());
                         }
-                        if (x == 1) {
+                        if (x === 1) {
                             var cell = createInputCell(x, y, dataTable[n].reason, "text");
                         }
-                        if (x == 2) {
+                        if (x === 2) {
                             var cell = createInputCell(x, y, dataTable[n].amount);
                         }
 
@@ -1169,14 +1889,14 @@
                 if (textArea) {
                     console.log("lastmein", textArea);
                     textArea.style.height = "auto";
-                    textArea.style.height = textArea.scrollHeight + 'px';
+                    textArea.style.height = textArea.scrollHeight + 5 + 'px';
                 }
 
 
 
 
             }
-            addReason();
+            // addReason();
         }
         else {
 
@@ -1184,16 +1904,97 @@
             gridTable.classList.add("workerTable");
             gridTable.classList.remove("reasonTable");
 
-            addToTable = document.getElementById("addToTable");    // declaraing
+            addToTableOld = document.getElementById("addToTable");    // declaraing
+            // removing all other event listner form add to Table
+            addToTable = addToTableOld.cloneNode(true);
+            addToTableOld.parentNode.replaceChild(addToTable, addToTableOld);
             // add an button for this
-            addToTable.addEventListener("click", getWorker);
-            addToTable.removeEventListener("click", addReason);
+            addToTable.addEventListener("click", function () {
+
+                //activating blurer
+                blur();
+
+                let scrollEventListener = true;
+                window.scrollEventListener = scrollEventListener;
+
+                // creating new using js alternative of if present i nhtml
+                // reccomendDivHolder = document.createElement("div")
+                // reccomendDivHolder.classList.add("reccomendDivHolder")
+
+                // input = document.createElement("input");
+                // input.setAttribute("type", "text");
+
+                // reccomendDiv = document.createElement("div");
+                // reccomendDiv.classList.add("reccomendDiv");
+
+                // reccomendDivHolder.appendChild(input);
+                // reccomendDivHolder.appendChild(reccomendDiv);
+
+                // document.body.appendChild(reccomendDivHolder);
+
+
+
+                reccomendDivHolder = document.querySelector(".reccomendDivHolder");                 // if div already exist in html
+                reccomendDivHolder.style.display = "block"
+
+                getWorker("", 0, true);
+
+                // in input inside reccomendDivHolder adding event lsitenrr fo rinput
+
+                input = reccomendDivHolder.querySelector("input");           // if already exist in html
+                input.addEventListener("input", function (e) {
+                    window.scrollEventListener = true
+
+                    value = input.value
+
+                    getWorker(value, 0, true);
+                });
+
+                // adding event listener for scroll here 
+                var previousScrollTop = 0; // Initialize the previous scroll position
+                let canRunCode = true;            // to make delay of 1 sec in code run to avoid code mutliplte time running
+                window.canRunCode = canRunCode;
+                reccomendDivHolder.querySelector(".reccomendDiv").addEventListener("scroll", function (event) {               // if already exist in html
+                    // reccomendDiv.addEventListener("scroll", function (event) {
+                    console.log(event.target);
+                    if (!window.canRunCode || !window.scrollEventListener) return;         // .canRunCode wait for data to come and be added bedire again firing. and .scrollEventListene, ensure that data is no more on server to send so it truns off
+                    console.log("!canCodeRun")
+
+                    // if (!window.scrollEventListener) return; // if no more data left
+                    var recommendationsContainer = event.target; // Use event.target to access the scrolled container
+                    // Check if the user has scrolled to the bottom of the container
+                    // if (recommendationsContainer.scrollHeight - recommendationsContainer.scrollTop === recommendationsContainer.clientHeight) {
+                    // if (recommendationsContainer.scrollTop > previousScrollTop) {
+                    // Calculate the scroll position related to reaching the bottom
+                    var scrollPositionToBottom = recommendationsContainer.scrollHeight - recommendationsContainer.clientHeight; // Adjust the 10 as needed
+
+                    if (recommendationsContainer.scrollTop >= scrollPositionToBottom) {
+                        window.canRunCode = false;          // to delay the code execution and avoid repetative code running
+                        // User has scrolled to the bottom
+                        // You can add your code here to load more recommendations or perform other actions
+                        console.log("Scrolled to the bottom!");
+                        previousScrollTop = recommendationsContainer.scrollTop; // Update the previous scroll position
+                        ignoreCount = recommendationsContainer.childElementCount;
+                        value = input.value ? input.value : ""
+                        console.log(value, ignoreCount)
+                        getWorker(value, ignoreCount, false)
+
+                        // Set a delay to prevent immediate execution
+                        // setTimeout(function () {
+                        //     window.canRunCode = true;
+                        // }, 1000); // Adjust the delay (1000 milliseconds in this example)
+                    }
+                });
+
+
+            });
+
             addToTable.innerHTML = "Add Worker";
 
 
 
             // dihaad and dihaadi
-            document.getElementById("dihaad").style.display = "block";
+            document.getElementById("dihaadi").style.display = "block";
             var dihaadi = dihaad.querySelector("#dihaad > input");
             value = dataTable[0][3] ? dataTable[0][3][0] : false;   // to set dihaadi value  
             // value = dataTable[0][3][0];                          // even the below is working bcoz undefined is as false
@@ -1207,16 +2008,28 @@
             if (!value) {
 
                 // dihaadi.disabled = false;
-                dihaadi.addEventListener("change", (event) => {
+                dihaadi.disabled = false;
+                dihaadi.addEventListener("change", async (event) => {
                     console.log(event.target.value)
-                    fetch("table/dihaadi", {
+                    const setDihaadi = await fetch("table/dihaadi", {
                         method: 'Post',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({ value: event.target.value, doc_id: window.doc_id })
 
-                    });
+                    })
+                    const responseData = await setDihaadi.json();
+
+                    message(responseData.status, responseData.message)
+
+                    gridmaker(responseData.name, 0);
+                    console.log(responseData)
+
+
+
+
+
                 })
             }
 
@@ -1235,6 +2048,11 @@
 
                 var row = document.createElement("tr"); // insert y-value inside of it, instead adding it to each cell
                 row.setAttribute("axis-y", y);
+
+                if (y == 0) {
+                    row.classList.add("tableRowHeader");
+
+                }
 
 
 
@@ -1275,7 +2093,7 @@
                             td.setAttribute("axis-y", y);
                             td.setAttribute("onclick", "payPop(event)");
 
-                            td.setAttribute("class", "pay");
+                            td.setAttribute("class", "pay pay-disable");
 
                             var payBtn = document.createElement("div");
                             payBtn.textContent = "Pay";
@@ -1318,12 +2136,12 @@
                         else if (x == 4) {
 
 
-                            due = (typeof window.total === 'number' && typeof window.paid === 'number') ? (window.total - window.paid) : "---";
+                            due = (typeof window.total === 'number' && typeof window.paid === 'number') ? (window.total - window.paid) : "___";
 
 
 
                             var cell = createInputCell(x, y, due);
-                            console.log(cell, window.paid, window.total)
+                            console.log(cell, window.paid, window.total);
 
 
                         }
@@ -1340,8 +2158,8 @@
                         if (x == 1) {
                             var td = document.createElement("td");
                             var payBtn = document.createElement("div");
-                            payBtn.textContent = "Pay Row";
-                            td.setAttribute("class", "pay");
+                            payBtn.textContent = "";
+                            td.setAttribute("class", "pay pay-disable");
 
 
                             td.appendChild(payBtn);
@@ -1383,7 +2201,8 @@
         // Create an input cell with given x and y values
         function createInputCell(x, y, text, cr) {
             var cell = document.createElement("td");
-            if (x == 1 && y != 0 && cr == "text") {
+            // if (x == 1 && y != 0 && cr === "text") {
+            if (cr === "text") {
                 var input = document.createElement("textarea");
 
                 input.innerHTML = text || "";
@@ -1433,52 +2252,82 @@
 
     }; // end of gridmaker;
 
+    // ask for confirmation for attendance present
+    // async function askConfirm(event) {
+    //     name = event.target.parentNode.nextElementSibling.querySelector("input").value;
+    //     const confirmation = window.confirm(`Marking attendance for ${name}`);
+    //     // console.log(event.target.parentNode.nextElementSibling)
+    //     return confirmation
 
 
+    // };
 
 
+    async function askConfirm(event) {
+        const name = event.target.parentNode.nextElementSibling.querySelector("input").value;
 
-    function getWorker(event) {
-        // var input = event.target;
-        // var xValue = input.getAttribute("axis-x");
-        // var yValue = input.getAttribute("axis-y");
-        // console.log(xValue, yValue)
-        // to filter out blank inputs
-        var newValue = "*";
-        // if (newValue.trim() === "") {
-        //     console.log("blank input");
-        //     return;
-        // }
-        // console.log(input)
+        const dialog = document.createElement('div');
+        dialog.innerHTML = `
+        <p>Marking attendance for <strong>${name}</strong></p>
+        <button id="yesButton" class="green">Yes</button>
+        <button id="noButton">No</button>
+       <div style="display: inline-block;"><p style="display: inline-block;">Auto Cancel in </p><p id="attenCountTimer" style="display: inline-block;"></p></div>
+    `;
+        dialog.style.position = 'fixed';
+        dialog.style.top = '50%';
+        dialog.style.left = '50%';
+        dialog.style.transform = 'translate(-50%, -50%)';
+        dialog.style.backgroundColor = 'white';
+        dialog.style.padding = '20px';
+        dialog.style.border = '1px solid #ccc';
+        dialog.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+        dialog.style.zIndex = '9999';
+        document.body.append(dialog);
 
-        // adjustCellWidthTargetOnly(input); // Adjust cell widths within the same column (y-axis) as the changed cell
+        const yesButton = dialog.querySelector('#yesButton');
+        const noButton = dialog.querySelector('#noButton');
 
-        //  post req  using fetch to save data
+        return new Promise((resolve) => {
+            yesButton.addEventListener('click', () => {
+                document.body.removeChild(dialog);
+                resolve(true);
+            });
 
-        fetch('/workerprofile/profile', {
-            method: 'Post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ searchString: newValue, ignoreCount: 0 })
-        })
-            .then(response => response.json())
-            .then(result => {
-                console.log(result);
-                // const minimizeButton = document.getElementById( 'minimizeButton');
-                // minimizeButton.click();
-                // location.reload();
-                reccomender(result)   // this will show data a
+            noButton.addEventListener('click', () => {
+                document.body.removeChild(dialog);
+                resolve(false);
+            });
 
-            })
-            .catch(error => console.error(error));
+            const number = 15;
 
+            const delayLoop = async (x) => {
+                document.getElementById("attenCountTimer").innerHTML = number - x
+                if (x === number) {
+                    console.log("done");
+                    document.body.removeChild(dialog);
+                    resolve(false);
+                    return;
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for 1 second
+                delayLoop(x + 1);
+            };
+
+            delayLoop(0);
+        });
     }
 
 
 
     //  toggle switch
-    function presentSwitch(event) {     // this switch is designed for multiple use but we will hamper that by removing onclick from svg
+    async function presentSwitch(event) {     // this switch is designed for multiple use but we will hamper that by removing onclick from svg
+
+        confirm = await askConfirm(event)
+        console.log(confirm)
+
+        if (!confirm) return;
+
+
         event.target.setAttribute("onclick", ""); // remove onclick from svg
         const switchCircle = event.target.querySelector('circle'); // Get the clicked element (the circle)
 
@@ -1503,19 +2352,121 @@
             },
             body: JSON.stringify({ yValue: switchCircle.getAttribute("axis-y"), doc_id: window.doc_id })
 
-        });
+        })
+            .then(response => response.json())
+            .then(res => {
+                message(res.status, res.message);
+                console.log(res)
+            })
+            .catch(err => {
+                message(400, "Something happened refresh");
+                console.log(err)
+            });
 
 
 
     }
 
+
+
+
+
+
+    // function getWorker(searchString, ignoreCount, reset) {
+    //     // var input = event.target;
+    //     // var xValue = input.getAttribute("axis-x");
+    //     // var yValue = input.getAttribute("axis-y");
+    //     // console.log(xValue, yValue)
+    //     // to filter out blank inputs
+    //     // var newValue = "";
+    //     // if (newValue.trim() === "") {
+    //     //     console.log("blank input");
+    //     //     return;
+    //     // }
+    //     // console.log(input)
+
+    //     // adjustCellWidthTargetOnly(input); // Adjust cell widths within the same column (y-axis) as the changed cell
+
+    //     //  post req  using fetch to save data
+
+    //     fetch('/workerprofile/profile', {
+    //         method: 'Post',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ searchString: searchString, ignoreCount: ignoreCount })
+    //     })
+    //         .then(response => response.json())
+    //         .then(resul => {
+    //             result = resul.data;
+    //             console.log(result);
+    //             // const minimizeButton = document.getElementById( 'minimizeButton');
+    //             // minimizeButton.click();
+    //             // location.reload();
+
+    //             reccomender(result, reset).then(() => {
+    //                 window.canRunCode = true          // this will show data a
+    //                 if (result.length < resul.should) {
+    //                     window.scrollEventListener = false;
+    //                 }
+    //             })
+
+
+    //         })
+    //         .catch(error => console.error(error));
+
+    // }
+
+    async function getWorker(searchString, ignoreCount, reset) {
+        try {
+            // Fetch data
+            const response = await fetch('/workerprofile/profiles', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ searchString, ignoreCount })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const resul = await response.json();
+            const result = resul.data;
+            console.log(result);
+
+            // Call reccomender and wait for it to complete
+            await reccomender(result, reset);
+
+            // Set canRunCode and scrollEventListener
+            window.canRunCode = true; // this will show data a
+            if (result.length < resul.should) {
+                window.scrollEventListener = false;
+            }
+        } catch (error) {
+            // Handle errors here
+            console.error(error);
+        }
+    }
+
+
+
+
     // getting worker list from db and send to table/addwordker
-    function reccomender(result, input) {
+    function reccomender(result, reset) {
+        var recommendationsContainer = document.querySelector(".reccomendDivHolder>.reccomendDiv");
+
+        if (reset) {
+            recommendationsContainer.innerHTML = "";
+        }
+
 
 
         console.log(result.length)
-        var recommendationsContainer = document.createElement("div");
-        recommendationsContainer.setAttribute("class", "reccomendDiv");
+        // var recommendationsContainer = document.createElement("div");
+        // recommendationsContainer.setAttribute("class", "reccomendDiv");
+
 
         // Create a new box for each user and append it to the container
         for (var x in result) {
@@ -1543,6 +2494,14 @@
                     .then(response => response.json())
                     .then(result => {
                         console.log(result);
+                        message(result.status, result.message)
+                        if (result.status === 200) {
+
+                            table = result.payload.name;
+                            console.log(table)
+                            unblur();
+                            gridmaker(table, 0)
+                        }
 
 
                     })
@@ -1580,7 +2539,8 @@
 
             recommendationsContainer.appendChild(box);
         }
-        document.body.appendChild(recommendationsContainer);
+        // document.body.appendChild(recommendationsContainer);
+
 
 
     }
@@ -1588,6 +2548,7 @@
 
     // nesting overlay GRAM adder, will have to move somewhere else, not everytime they will add any GRAM, send it in Another file as <iframe src="https://www.example.com"></iframe>.
     function onNesta(event) {
+        blur()
         smallPageContent = ` <form id="main" action="/main/a">
         <input type="text" name="maina" id="maina" placeholder="enter name of directory you want to create">
         <button type="submit">Upload</button>
@@ -1601,14 +2562,14 @@
         overlay.innerHTML = `
         <div class="overlay-content">
             ${smallPageContent}
-            <button id="minimizeButton">Minimize</button>
-        </div>
-    `;
+            </div>
+            `;
         // Add a click event listener to the minimize button
-        const minimizeButton = document.getElementById('minimizeButton');
-        minimizeButton.addEventListener('click', () => {
-            overlay.style.display = 'none'; // Hide the overlay when the button is clicked
-        });
+        // <-- <button id="minimizeButton">Minimize</button> --!>
+        // const minimizeButton = document.getElementById('minimizeButton');
+        // minimizeButton.addEventListener('click', () => {
+        //     overlay.style.display = 'none'; // Hide the overlay when the button is clicked
+        // });
 
         // Add event listener to the form after it's inserted into the DOM
         const form = document.getElementById('main');
@@ -1626,6 +2587,7 @@
             })
                 .then(response => response.json())
                 .then(result => {
+                    message(result.status, result.message)
                     console.log(result);
                     // const minimizeButton = document.getElementById('minimizeButton');
                     // minimizeButton.click();
@@ -1667,6 +2629,20 @@
 
     //  trigger by clicked on dowm container merged by function onItemClick(event) to execute gettable(doc_id);, 
     function getItem(event) {
+
+        // master
+
+        // // Create a custom event object
+        var customEvent = {
+            target: {
+                checked: false, // Set the checked property as needed
+            },
+        };
+        document.getElementById("masterMyCheckbox").checked = false;
+        masterE(customEvent);
+
+        //end Master
+
         var clickedItem = event.target;
         // marking as clicked and removing from previous one
         elementToRemoveClassFrom = document.querySelector("#wdfk > .clicked");
@@ -1724,28 +2700,32 @@
             y = n + 1;
             // console.log("ho raha hai lund mera", window.data[xValue][y]);
             var newItem = document.createElement("div");
+            var newP = document.createElement("p");
+            newItem.appendChild(newP)
+
             newItem.className = "item";
             var container = document.getElementById("wdfk");
             container.appendChild(newItem);
             newItem.setAttribute("data-y", n);
-            newItem.setAttribute("doc-id", window.data[xValue][y]);
+            newItem.setAttribute("doc-id", window.data[xValue][y].id);
+            newP.textContent = window.data[xValue][y].type;
 
             newItem.addEventListener("click", getItem);
-            // naming them acc to thie position
-            if (y == 1) {
-                newItem.textContent = "Worker";
-            } else if (y == 2) {
-                newItem.textContent = "Driver";
-            } else if (y == 3) {
-                newItem.textContent = "Fitter";
-            } else if (y == 4) {
-                newItem.textContent = "Kharcha";
 
-            }
-        }
+            // naming them acc to thie position
+            // if (y == 1) {
+            //     newItem.textContent = "Worker";
+            // } else if (y == 2) {
+            //     newItem.textContent = "Driver";
+            // } else if (y == 3) {
+            //     newItem.textContent = "Fitter";
+            // } else if (y == 4) {
+            //     newItem.textContent = "Kharcha";
+
+            // }
+        };
 
         // setting clicked container as cookie
-        ;
         document.cookie = "clickedItem=" + xValue + ";";
 
         // click item from cookie
@@ -1771,27 +2751,29 @@
             })
             .then(bata => {
                 // Handle the retrieved data here
-                bata = bata.filter(value => value !== false);
-                data = [];
+                data = bata.filter(value => value !== false && value !== null);
+                // data = [];
 
-                bata.forEach((value, index) => {
-                   console.log(value, index)
-                   if(value === false || value === null){
-                       console.log("false")
-                   }
-                   else{
-                    
-                    data.push(value);
-                   }
-                });
+                // bata.forEach((value, index) => {
+                //     console.log(value, index)
+                //     if (value === false || value === null) {
+                //         console.log("false")
+                //     }
+                //     else {
+
+                //         data.push(value);
+                //     }
+                // });
                 window.data = data;
                 console.log(data);
 
                 console.log(data.length);
                 for (x in data) {
                     var newItem = document.createElement("div");
+                    var newP = document.createElement("p");
+                    newItem.appendChild(newP);
                     newItem.className = "item";
-                    newItem.textContent = data[x][0];
+                    newP.textContent = data[x][0];
                     var container = document.getElementById("gram-list");
                     container.appendChild(newItem);
                     newItem.setAttribute("data-x", x);
@@ -1807,20 +2789,17 @@
                 }
 
 
+
+            })
+            .then(() => {
                 const Item = checkCookie('clickedItem');
                 if (Item.status) {
-                    document.querySelector(`[data-x="${Item.value}"]`).click();
-
+                    try {
+                        document.querySelector(`[data-x="${Item.value}"]`).click();
+                    } catch { console.log("something happened while clicking") }
                 } else {
                     console.log('Cookie "Item" does not exist.');
                 }
-
-
-
-
-
-
-
             })
             .catch(error => {
                 // Handle errors here

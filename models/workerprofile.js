@@ -16,6 +16,9 @@ const workerprofileSchema = new mongoose.Schema({
     },
     data: {
         type: Array
+    },
+    createdBy :{
+        type : String
     }
     
 });

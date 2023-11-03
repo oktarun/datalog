@@ -474,3 +474,746 @@ function adjustCellWidthTargetOnly(targetCell) {
 
 
 </html> 
+
+
+
+
+
+// to writing effect
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1 id="hihi">This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+<script>
+
+var result = "";
+
+var hihi = document.getElementById("hihi");
+
+var alphabet = [
+  ' ','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+  'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+];
+var zar = 0;
+var found = false
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function zara(jira) {
+  var text = jira.split('');
+
+  async function iteratejira() {
+    if (zar < text.length) {
+      var zh = text[zar];
+      console.log(zh);
+      await iterateAlphabet(0, zh); // Start iterating through the alphabet with index 0
+    //   zar++;
+    } else {
+      console.log("Even the first function is complete");
+    }
+  }
+
+  async function iterateAlphabet(index, zh) {
+    if (index < alphabet.length) {
+      var character = alphabet[index];
+      console.log(zh, character);
+      
+      if(found) {
+          
+          found = false
+          zar++
+          index = 0
+          iteratejira()
+          return;
+          
+      }
+      hihi.innerHTML = result+character
+      
+      if(zh===character){
+          found = true
+          result +=zh
+          
+      }
+      await sleep(100); // Introduce a 1000ms (1 second) delay before the next iteration
+      await iterateAlphabet(index + 1, zh); // Continue with the next character
+    } else {
+        found = false
+          zar++
+          index = 0           // can be use input is not in alpabhet
+          result +=zh
+          iteratejira()
+          return;
+      //await sleep(100); // Introduce a 1000ms (1 second) delay before moving to the next character in 'text'
+      //await iteratejira(); // Move to the next character in 'text'
+    }
+  }
+
+  // Call the initial invocation of iteratejira
+  await iteratejira();
+}
+
+// Call the function to start iterating through the alphabet
+zara("tarun yadav");
+
+
+
+
+
+</script>
+</html>
+
+
+// showpiss.html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Page Title</title>
+</head>
+
+<style>
+  p {
+    display: inline-block;
+    width: 1em;
+    /* Set a fixed width for each character block */
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+    text-align: center;
+    /* Center-align the content within each block */
+    /* border: 1px solid #ccc; Add a border for better visibility (optional) */
+    margin-right: 2px;
+    color: white;
+  }
+
+  body {
+    background-color: grey;
+  }
+</style>
+
+<body>
+
+  <h1 id="hihi"></h1>
+  <!-- <p>This is a paragraph.</p> -->
+
+  <audio id="popSound" src="click-button-140881.mp3"></audio>
+
+  <button id="btn">staart</button>
+
+</body>
+<script>
+
+  // Function to play the pop sound
+  function playPopSound() {
+    var popSound = document.getElementById("popSound");
+    popSound.currentTime = 0; // Reset the audio to the beginning
+    popSound.play();
+  }
+
+  var text =
+    "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" +  // Russian
+    "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß" +  // Some accented Latin characters
+    "αβγδεζηθικλμνξοπρστυφχψω" +  // Greek
+    "你好吗我很好谢谢" +  // Chinese (Simplified)
+    "こんにちはありがとうさようなら" +  // Japanese
+    "안녕하세요감사합니다안녕히가세요" +  // Korean
+    "مرحباأهلاصباحالخير" +  // Arabic
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +  // Additional Latin characters
+    "नमस्तेआपकैसेहैंबड़ीख़बर" +  // Hindi
+    "مرحباكيفحالكشكرا" +  // Arabic (Egyptian dialect)
+    "¡Hola¿Cómoestás?Estoybien,gracias" +  // Spanish
+    "OláComovocêestá?Estoubem,obrigado" +  // Portuguese
+    " abcdefghijklmnopqrstuvwxyz" +  // English
+    "SalutCommentçava?Jevasbien,merci";  // French
+
+  // console.log(alphabetString);
+
+  // var result = "";
+
+  var hihi = document.getElementById("hihi");
+
+  // var alphabet = [
+  //   ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+  //   'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+  // ];
+  // var text = ' abcdefghijklmnopqrstuvwxyz';
+  var alphabet = text.split("")
+  
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+  async function zara(jira) {
+    var text = jira.split('');
+    
+    stringArray = [];
+    var zar = 0;
+
+    m = 0;
+    // async function iteratejira() {
+    //   if (zar < text.length) {
+    //     var p = document.createElement("p");
+    //     hihi.append(p);
+    //     var zh = text[zar];
+    //     console.log(zh);
+
+    //     await iterateAlphabet(0, zh, p); // Start iterating through the alphabet with index 0
+    //       zar++;
+    //   } else {
+    //     console.log("Even the first function is complete");
+    //   }
+    // };
+    async function iteratejira() {
+      if (zar < text.length) {
+        textCh = text[zar];
+        var newAlpha = alphabet.slice(); // Create a copy of the alphabet array
+
+        for (var i = newAlpha.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          [newAlpha[i], newAlpha[j]] = [newAlpha[j], newAlpha[i]];
+        }
+        stringArray.push(newAlpha);
+        p = document.createElement("p");
+        hihi.append(p);
+        p.setAttribute("found", false)
+        p.setAttribute("index", 0);
+        p.setAttribute("m", m);
+
+        iterateAlphabet(textCh, p)
+        await sleep(333)	
+
+        m++;
+        zar++;
+        iteratejira();
+
+      } else {
+        console.log("Even the first function is complete");
+      }
+    };
+
+    // text.forEach((text) => {
+    //   var newAlpha = alphabet.slice(); // Create a copy of the alphabet array
+
+    //   for (var i = newAlpha.length - 1; i > 0; i--) {
+    //     var j = Math.floor(Math.random() * (i + 1));
+    //     [newAlpha[i], newAlpha[j]] = [newAlpha[j], newAlpha[i]];
+    //   }
+    //   stringArray.push(newAlpha);
+    //   p = document.createElement("p");
+    //   hihi.append(p);
+    //   p.setAttribute("found", false)
+    //   p.setAttribute("index", 0);
+    //   p.setAttribute("m", m);
+
+    //   iterateAlphabet(text, p)
+
+    //   m++;
+    // });
+
+    // second repiattion
+    async function iterateAlphabet(zh, p) {
+
+      m = parseInt(p.getAttribute("m"));
+      index = parseInt(p.getAttribute("index"));
+      found = p.getAttribute("found");
+      // console.log(stringArray)
+      newAlpha = stringArray[m]
+
+      if (index < newAlpha.length) {
+        var character = newAlpha[index];
+
+        p.setAttribute("index", index + 1);
+
+        // console.log(zh, character, p, index, newAlpha.length, found)
+
+        if (found === "true") {
+
+          // found = false
+          // zar++
+          // index = 0
+          // iteratejira()
+          console.log(p, "found")
+          return;
+
+        }
+        playPopSound()
+        p.innerHTML = character;
+
+        if (zh === character) {
+          p.setAttribute("found", true);
+          // result += zh
+
+        }
+        await sleep(100)			//Introduce a 1000ms (1 second) delay before the next iteration
+        await iterateAlphabet(zh, p); // Continue with the next character
+      } else {
+        // found = false
+        // zar++
+        // index = 0           // can be use input is not in alpabhet
+        // result += zh
+        // iteratejira()
+        p.innerHTML = zh
+        console.log(p, "end")
+        // iterateAlphabet(zh, p) 
+        //await sleep(100); // Introduce a 1000ms (1 second) delay before moving to the next character in 'text'
+        //await iteratejira(); // Move to the next character in 'text'
+      }
+    }
+
+    // Call the initial invocation of iteratejira
+    await iteratejira();
+  }
+
+  // Call the function to start iterating through the alphabet
+  // zara("Kuch bhi");
+  document.getElementById("btn").addEventListener("click", function () {
+    // Play the audio when the button is clicked
+    zara("kuch bhi")
+  });
+
+
+
+
+
+</script>
+
+</html>
+
+
+
+// same in another from<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Page Title</title>
+</head>
+
+<style>
+  p {
+    display: inline-block;
+    width: 1em;
+    /* Set a fixed width for each character block */
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+    text-align: center;
+    /* Center-align the content within each block */
+    /* border: 1px solid #ccc; Add a border for better visibility (optional) */
+    margin-right: 2px;
+    color: white;
+  }
+
+  body {
+    background-color: rgb(0, 0, 0);
+  }
+
+  input {
+    display: none;
+  }
+</style>
+
+<body>
+
+  <h1 id="hihi"></h1>
+  <!-- <p>This is a paragraph.</p> -->
+
+  <!-- <audio id="popSound" src="click-button-140881.mp3"></audio> -->
+
+  <button id="btn">staart</button>
+
+</body>
+<script>
+
+  // Function to play the pop sound
+  // function playPopSound() {
+  //   const popSound = document.getElementById("popSound");
+  //   popSound.currentTime = 0; // Reset the audio to the beginning
+  //   popSound.play();
+  // }
+
+  var text =
+    "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" +  // Russian
+    "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß" +  // Some accented Latin characters
+    "αβγδεζηθικλμνξοπρστυφχψω" +  // Greek
+    "你好吗我很好谢谢" +  // Chinese (Simplified)
+    "こんにちはありがとうさようなら" +  // Japanese
+    "안녕하세요감사합니다안녕히가세요" +  // Korean
+    "مرحباأهلاصباحالخير" +  // Arabic
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +  // Additional Latin characters
+    "नमस्तेआपकैसेहैंबड़ीख़बर" +  // Hindi
+    "مرحباكيفحالكشكرا" +  // Arabic (Egyptian dialect)
+    "¡Hola¿Cómoestás?Estoybien,gracias" +  // Spanish
+    "OláComovocêestá?Estoubem,obrigado" +  // Portuguese
+    " abcdefghijklmnopqrstuvwxyz" +  // English
+    "SalutCommentçava?Jevasbien,merci";  // French
+
+  // console.log(alphabetString);
+
+  // var result = "";
+
+  var hihi = document.getElementById("hihi");
+
+  // var alphabet = [
+  //   ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+  //   'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+  // ];
+  // var text = ' abcdefghijklmnopqrstuvwxyz';
+  var alphabet = text.split("")
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function zara(jira) {
+    var text = jira.split('');
+
+    stringArray = [];
+    var zar = 0;
+
+    m = 0;
+    // async function iteratejira() {
+    //   if (zar < text.length) {
+    //     var p = document.createElement("p");
+    //     hihi.append(p);
+    //     var zh = text[zar];
+    //     console.log(zh);
+
+    //     await iterateAlphabet(0, zh, p); // Start iterating through the alphabet with index 0
+    //       zar++;
+    //   } else {
+    //     console.log("Even the first function is complete");
+    //   }
+    // };
+    async function iteratejira() {
+      if (zar < text.length) {
+        textCh = text[zar];
+        var newAlpha = alphabet.slice(); // Create a copy of the alphabet array
+
+        for (var i = newAlpha.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          [newAlpha[i], newAlpha[j]] = [newAlpha[j], newAlpha[i]];
+        }
+        stringArray.push(newAlpha);
+        p = document.createElement("p");
+        hihi.append(p);
+        p.setAttribute("found", false)
+        p.setAttribute("index", 0);
+        p.setAttribute("m", m);
+
+        sound = document.createElement("audio");
+        // sound.setAttribute("src", "pop-39222.mp3")
+        sound.setAttribute("src", "click-button-140881.mp3")
+        sound.addEventListener("timeupdate", function () {
+          if (sound.currentTime >= 0.09) {
+            sound.pause();
+          }
+        });
+
+
+        iterateAlphabet(textCh, p, sound)
+        await sleep(700)
+
+        m++;
+        zar++;
+        iteratejira();
+
+      } else {
+        console.log("Even the first function is complete");
+      }
+    };
+
+    // text.forEach((text) => {
+    //   var newAlpha = alphabet.slice(); // Create a copy of the alphabet array
+
+    //   for (var i = newAlpha.length - 1; i > 0; i--) {
+    //     var j = Math.floor(Math.random() * (i + 1));
+    //     [newAlpha[i], newAlpha[j]] = [newAlpha[j], newAlpha[i]];
+    //   }
+    //   stringArray.push(newAlpha);
+    //   p = document.createElement("p");
+    //   hihi.append(p);
+    //   p.setAttribute("found", false)
+    //   p.setAttribute("index", 0);
+    //   p.setAttribute("m", m);
+
+    //   iterateAlphabet(text, p)
+
+    //   m++;
+    // });
+
+    // second repiattion
+    async function iterateAlphabet(zh, p, sound) {
+
+      m = parseInt(p.getAttribute("m"));
+      index = parseInt(p.getAttribute("index"));
+      found = p.getAttribute("found");
+      // console.log(stringArray)
+      newAlpha = stringArray[m]
+
+      if (index < newAlpha.length) {
+        var character = newAlpha[index];
+
+        p.setAttribute("index", index + 1);
+
+        // console.log(zh, character, p, index, newAlpha.length, found)
+
+        if (found === "true") {
+
+          // found = false
+          // zar++
+          // index = 0
+          // iteratejira()
+          console.log(p, "found")
+          return;
+
+        }
+        // playPopSound()
+        sound.currentTime = 0;
+        sound.play()
+        // Check if the current time of the audio has reached the stop time
+
+
+
+        // popSound.play();
+        p.innerHTML = character;
+
+        if (zh === character) {
+          p.setAttribute("found", true);
+          // result += zh
+
+        }
+        await sleep(100)			//Introduce a 1000ms (1 second) delay before the next iteration
+        await iterateAlphabet(zh, p, sound); // Continue with the next character
+      } else {
+        // found = false
+        // zar++
+        // index = 0           // can be use input is not in alpabhet
+        // result += zh
+        // iteratejira()
+        p.innerHTML = zh
+        console.log(p, "end")
+        // iterateAlphabet(zh, p) 
+        //await sleep(100); // Introduce a 1000ms (1 second) delay before moving to the next character in 'text'
+        //await iteratejira(); // Move to the next character in 'text'
+      }
+    }
+
+    // Call the initial invocation of iteratejira
+    await iteratejira();
+  }
+
+  // Call the function to start iterating through the alphabet
+  // zara("Kuch bhi");
+  document.getElementById("btn").addEventListener("click", function () {
+    // Play the audio when the button is clicked
+    zara("kuch bhi")
+  });
+
+
+
+
+
+</script>
+
+</html>
+
+
+
+
+
+
+// to add payment, when which was written beofr eor after but advacne
+router.post("/paying", async (req, res) => {
+
+//     const { yValue, doc_id, payment } = req.body;
+//     const current_login_user_id = "fiuewbifbsdbfbsdkjfbdskjbf";
+
+//     // Convert yValue to an integer (assuming it represents the index)
+//     const yIndex = parseInt(yValue) + 1;
+
+//     // Define the update operation
+//     const updateOperation = {
+//         $push: {
+//             // Construct the field path dynamically based on the index (yIndex)
+//             [`name.${yIndex}.0.payment`]: {
+//                 user_id: current_login_user_id,
+//                 amount: payment,
+//                 date: new Date(),
+//             },
+//         },
+//     };
+
+//     // Execute the update operation
+//     Table.findOneAndUpdate(                                         // changes query to not return new doc to save server
+//         { _id: doc_id }, // Specify the document to update by _id
+//         updateOperation,
+//         { new: true }, // This option returns the modified document 
+//         function (err, result) {
+//             if (err) {
+//                 console.log("Error updating document:", err);
+//                 return res.status(500).json({ error: "Database error" });
+//             }
+//             if (!result) {
+//                 // Handle the case where the document is not found
+//                 return res.status(404).json({ error: "Document not found" });
+//             }
+
+//             console.log(result.name[yIndex][0].payment);
+//             // return res.json("dsgdf");
+//             Yablw = result;
+//             // console.log(Yablw);
+//         }
+//     );
+
+
+    
+    
+// });
+
+
+
+
+
+
+
+
+
+
+// the animation over p using css
+ .item {
+            flex: 0 0 auto;
+            /* Don't grow or shrink items */
+            width: 100px;
+            /* Set the width of each item */
+            height: 50px;
+            margin-right: 10px;
+            /* Add space between items */
+            background-color: rgb(255, 255, 255);
+            border: 1px solid gray;
+            display: inline-flex;
+            /* Ensure items stay inline */
+            align-items: center;
+            justify-content: center;
+            /* Center the content both vertically and horizontally */
+
+            background-color: transparent;
+            overflow: hidden; /* Hide overflow to prevent clipping */
+
+            position: relative; /* Add relative positioning for pseudo-element */
+
+        }
+
+        .item>p {
+            margin: 0;
+            /* Remove margin to center vertically */
+            text-align: center;
+            /* Center the text horizontally */
+
+            width: 100px;
+
+            font-size: larger;
+
+            /* background-color: rgb(255, 255, 255); */
+            /* background-color: black; */
+            z-index: 1;
+
+            /* mix-blend-mode:exclusion; Apply blend mode to <p> content */
+            /* color: transparent; */
+            pointer-events: none;
+        }
+
+        .clicked{
+
+        }
+
+        
+        /* .item>p::before {
+            content: ""; */
+            /* Create a pseudo-element */
+            /* position: absolute; */
+            /* Position it absolutely to the <p> */
+            /* display: inline-block; */
+            /* top: 35%; */
+            /* top: 0;
+            left: 0; */
+            /* width: 100%; */
+            /* height: 0; */
+            /* height: 100%; */
+            /* Initially set height to 0 */
+            /* background-color: rgb(255, 255, 255); */
+            /* Set background color for the pseudo-element */
+            /* opacity: 1; */
+            /* Initially set opacity to 1 (visible) */
+            /* transition: height 0.3s, opacity 0.9s, top 0.3s; */
+            /* Add transitions for height and opacity */
+            /* z-index: -2;
+        } */
+
+        /* .item:hover>p::before { */
+            /* height: 100%; */
+            /* transform: scaleX(1) scaleY(1); Expand the pseudo-element to 100% width and height */
+            /* Grow the pseudo-element to 100% height on hover */
+            /* opacity: 1;
+            height: 100%; */
+            /* top: 0; */
+            /* Hide the pseudo-element on hover */
+        /* } */
+/* 
+        .item>p::after {
+            content: ""; */
+            /* Create a pseudo-element */
+            /* position: absolute; */
+            /* Position it absolutely to the <p> */
+            /* display: inline-block; */
+            /* top: 50%; */
+            /* top: 0;
+            left: 0;
+            width: 100%;
+            height: 0; */
+            /* height: 100%; */
+            /* Initially set height to 0 */
+            /* background-color: rgb(255, 255, 255); */
+            /* background-color: transparent; */
+            /* Set background color for the pseudo-element */
+            /* opacity: 1; */
+            /* Initially set opacity to 1 (visible) */
+            /* transition: height .5s, opacity 0.9s, top 0.5s,  border-radius .5s ease-out; */
+            /* Add transitions for height and opacity */
+            /* z-index: 2; */
+            /* mix-blend-mode: red; Apply a blend mode to make it visible only through transparent parts */
+            /* border: 0 solid red; */
+            /* border-radius: 100%; */
+            /* mix-blend-mode: difference; 
+        } */
+
+        /* .item:hover>p::after { */
+            /* height: 100%; */
+            /* transform: scaleX(1) scaleY(1); Expand the pseudo-element to 100% width and height */
+            /* Grow the pseudo-element to 100% height on hover */
+            /* opacity: 1;
+            height: 100%;
+            top: 0;
+            border-radius: 0; */
+        
+            /* Hide the pseudo-element on hover */
+        /* } */
+        /* .item>p:hover {
+
+            height: 100%;
+        } */
+
+        /* .clicked>p::before {
+            background-color: grey;
+
+        }
+        .clicked:hover>p::after {
+            background-color: grey;
+
+        } */

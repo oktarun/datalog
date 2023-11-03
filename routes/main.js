@@ -31,6 +31,8 @@ if(req.userAbility ==="admin"){
   //   }
   // });
   //else create anew doc.name from user.main
+  
+
   else{
 
     user = getUser(req.userid);
@@ -56,9 +58,13 @@ if(req.userAbility ==="admin"){
 
 
 router.post('/a', async (req, res) => {
+
+  if(req.userAbility !="admin") return;
   Main.findById(mAdd, async function (err, doc) {
     if (err) {
-      res.status(500).send(err);
+      // res.status(500).send(err);
+       res.json({status:400, message: "Something happened ERR"})
+
     } else {
       var value = req.body.maina;
       //   dog = [[value]]
@@ -68,6 +74,7 @@ router.post('/a', async (req, res) => {
 
       // Create an array to store all the promises
       const promises = [];
+      TableTypeInOrder = ["Worker", 'Driver', 'Fitter', 'Kharcha']
 
       // create blank table document 4 times push it in main document and then push it's id in the table document;
       for (var z = 0; z < 4; z++) {    // worker driver fitter kharcha
@@ -103,7 +110,7 @@ router.post('/a', async (req, res) => {
         const savePromise = await blankDocument.save()
           .then(savedDocument => {
             const id = savedDocument._id;
-            cod.push(id);
+            cod.push({type: TableTypeInOrder[z], id:id});
             console.log(id);
           });
         promises.push(savePromise);
@@ -121,13 +128,17 @@ router.post('/a', async (req, res) => {
               res.status(500).send(err);
             } else {
               console.log(updatedDoc);
-              res.status(200).send(updatedDoc);
+              // res.status(200).send(updatedDoc);
+              
               updateMain(updatedDoc.main);
+              res.json({status:200, message: "Added a New Gram"})
             }
           });
         });
     }
   })
+
+  
 });
 
 // turn of the below router and add it in router/a by iterating 4 time and creating those files

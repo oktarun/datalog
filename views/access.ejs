@@ -4,29 +4,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Control access of User</title>
 </head>
 <style>
-    #userbox {
-        border: 1px rgb(235, 231, 231) solid;
-        margin: 10px 0px;
+    body {
+        background-color: black;
+
     }
+
+    #addMainToUser{
+        min-height: 550px;
+    }
+
+    .userbox {
+        border: 1px rgb(0, 0, 0) solid;
+        margin: 30px 0px;
+        background-color: teal;
+        color: rgb(255, 255, 255);
+        height: max-content;
+
+
+
+    }
+
+    .userbox>h1 {
+        font-size: 30px;
+        margin: auto;
+    }
+
+    .userbox>button {
+        font-size: 25px;
+        /* margin-left: 30px; */
+        margin-top: 30px;
+        width: 100px;
+
+    }
+
+    .permissionbox {
+        background-color: rgb(255, 255, 255);
+        /* color: black; */
+        /* width: 40px;
+        height: 40px; */
+        /* background-image: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' fill='%23000000' height='200' width='200' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 330 330' xml:space='preserve'><g id='SVGRepo_bgCarrier' stroke-width='0'></g><g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g><g id='SVGRepo_iconCarrier'><path id='XMLID_24_' d='M315,0H15C6.716,0,0,6.716,0,15v300c0,8.284,6.716,15,15,15h300c8.284,0,15-6.716,15-15V15C330,6.716,323.284,0,315,0z M255.606,135.606l-79.998,80c-2.813,2.813-6.628,4.394-10.606,4.394c-3.979,0-7.793-1.58-10.607-4.394l-80.002-80c-5.858-5.857-5.858-15.355,0-21.213c5.857-5.858,15.355-5.858,21.213,0l69.396,69.393l69.392-69.393c5.857-5.858,15.355-5.858,21.213,0C261.465,120.251,261.465,129.749,255.606,135.606z'></path></svg>"); */
+        /* background-size: cover; */
+        /* Adjust as needed */
+        /* background-repeat: no-repeat; */
+        /* display: flex;
+        flex-direction: column; */
+
+
+    }
+
+    .permissionbox>p {
+        height: 50px;
+        color: white;
+        border: black 1px solid;
+        background-color: black;
+        font-size: 30px;
+        padding-top: 7px;
+
+        display: flex;
+        /* justify-content: center; */
+        /* Horizontally center text */
+        align-items: center;
+        /* Vertically center text */
+
+
+    }
+
+    .permissionbox>p>input {
+
+        width: 40px;
+        height: 40px;
+        margin-left: 30px;
+
+    }
+
 
     #addMainToUser {
 
         margin-top: 30px;
     }
-    button{
+
+    button {
         display: none;
+    }
+
+    svg {
+
+        margin-top: 3px;
+        width: 34px;
+        height: 34px;
+        pointer-events: none;
+        fill: black;
     }
 </style>
 
 <body onload="initializePage()">
- 
-  
+
+
     <hr>
     <br>
     <hr>
+
 
     <div id="addMainToUser"></div>
 
@@ -34,99 +114,98 @@
 <script>
     var uSers = [];
 
-   
-    
- 
+
+
+
 
     document.getElementById('addMainToUser');
     async function initializePage() {
-    try {
-        console.log("first start");
+        try {
+            console.log("first start");
 
-        const accountsResponse = await fetch('/user/accounts', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+            const accountsResponse = await fetch('/user/accounts', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
 
-        const accountsData = await accountsResponse.json();
+            const accountsData = await accountsResponse.json();
 
-        console.log(accountsData);
+            console.log(accountsData);
 
-        let html = '';
-        // let uSers = [];
+            let html = '';
+            // let uSers = [];
 
-        accountsData.forEach((user) => {
-            console.log("user tak");
-            if (user.userLevel !== "admin") {
+            accountsData.forEach((user) => {
+                console.log("user tak");
+                // if (user.userLevel !== "admin") {
                 uSers.push({ id: user._id, main: user.main });
 
                 html += `
-                    <div id="userbox">
-                        <h1>${user._id}</h1>
-                        <h3>${user.name}</h3>
-                        <p>${user.mobileNo}</p>
-                        <p>${user.psd}</p>
-                        <p>${user.userLevel}</p>
-                        <div class="permissionbox" id="${user._id}" onclick="arrangeMain(this)">Arrange</div>
+                    <div class="userbox">
+                    <!--    <h1>${user._id}</h1> -->
+                        <h1>${user.name}</h1>
+                    <!--    <p>${user.mobileNo}</p> -->
+
+                        <div class="permissionbox" id="${user._id}" onclick="arrangeMain(this)"><svg onclick="arrangeMain(this.parentElement)" fill="#813636" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#813636"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path  onclick="arrangeMain(this.parentElement.parentElement.parentElement)"  id="XMLID_24_" d="M315,0H15C6.716,0,0,6.716,0,15v300c0,8.284,6.716,15,15,15h300c8.284,0,15-6.716,15-15V15 C330,6.716,323.284,0,315,0z M255.606,135.606l-79.998,80c-2.813,2.813-6.628,4.394-10.606,4.394c-3.979,0-7.793-1.58-10.607-4.394 l-80.002-80c-5.858-5.857-5.858-15.355,0-21.213c5.857-5.858,15.355-5.858,21.213,0l69.396,69.393l69.392-69.393 c5.857-5.858,15.355-5.858,21.213,0C261.465,120.251,261.465,129.749,255.606,135.606z"></path> </g></svg></div>
                         <button onclick="updateMain('${user._id}')">Click</button>
                     </div>
                 `;
-            }
-        });
+                // }
+            });
 
-        document.getElementById('addMainToUser').innerHTML = html;
+            document.getElementById('addMainToUser').innerHTML = html;
 
-        console.log("second start");
+            console.log("second start");
 
-        const mainDataResponse = await fetch('/main/data', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        });
+            const mainDataResponse = await fetch('/main/data', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
 
-        const mainData = await mainDataResponse.json();
+            const mainData = await mainDataResponse.json();
 
-        window.mainData = mainData;
+            window.mainData = mainData;
 
-        console.log(mainData);
+            console.log(mainData);
 
-        let mainer = '';
-        let maincounter = 0;
+            let mainer = '';
+            let maincounter = 0;
 
-        mainData.forEach((main) => {
-            console.log(main[0])
+            mainData.forEach((main) => {
+                console.log(main[0])
 
-            mainer += `
-                <input type="checkbox" onclick="addMain(this)" id="c${maincounter}" >${main[0]}<br>
+                mainer += `
+               <p> <input type="checkbox" onclick="addMain(this)" id="c${maincounter}" >${main[0]}</p>
             `;
-            maincounter++;
-        });
+                maincounter++;
+            });
 
-        window.mainer = mainer;
+            window.mainer = mainer;
 
-        // You can uncomment this part if you want to set mainer content to permissionbox elements
-        // document.querySelectorAll(".permissionbox").forEach((box) => {
-        //     box.innerHTML = mainer;
-        //     console.log(box);
-        // });
+            // You can uncomment this part if you want to set mainer content to permissionbox elements
+            // document.querySelectorAll(".permissionbox").forEach((box) => {
+            //     box.innerHTML = mainer;
+            //     console.log(box);
+            // });
 
-    } catch (err) {
-        console.log(err);
+        } catch (err) {
+            console.log(err);
+        }
     }
-}
 
 
 
 
 
     function arrangeMain(e) {
-        if(e.innerHTML !="Arrange"){
-            return;
+        // if (e.innerHTML != "Arrange") {
+        //     return;
 
-        }
+        // }
         e.parentElement.querySelector("button").style.display = "block";
 
 
@@ -161,7 +240,7 @@
         idPosition = e.id.slice(1);
         console.log(parseInt(idPosition))
 
-        var user = uSers.find(user => user.id === e.parentElement.id);
+        var user = uSers.find(user => user.id === e.parentElement.parentElement.id);
 
 
         // Check if the user.main array is long enough to accommodate the given position
@@ -172,7 +251,7 @@
             }
         }
         // Update the value in the array based on the checkbox's checked status
-        fdata = e.checked ? window.mainData[idPosition]: false;
+        fdata = e.checked ? window.mainData[idPosition] : false;
         user.main[idPosition] = fdata;
 
         // Now the user.main array has been updated
@@ -197,22 +276,23 @@
         // user.main = filteredArray;
         // console.lgo(user)
 
-       
+
 
         fetch('/user/_main', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({user})
+            body: JSON.stringify({ user })
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                message(data.status, data.message)
             })
             .catch(err => console.log(err));
 
-        
+
     }
 
 

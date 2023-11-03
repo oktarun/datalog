@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "flowing-vision-400922",
+  "private_key_id": "13c6a6d70d1e14e8d79e6f657c6416785eb94562",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDp6Gg01yPlqiQ4\nm4mxOT8XCku+UqFeob5hN14fEkP2ZB7oxexM6GfdbOCxGSYx4tszrF7722Q9FjpE\nxg2KTuYLOVkxB4DG1UZ0B7a98Ac50xsuxU8ZBZuqcHINipryGeGQYTmhyzmOm0mG\nDdHzisiYRO02Qzj6udnJXYeuFchGnASm9nmxgyxGwsst594uvvfTNqewJNy7wwVj\nQ+Lq7YZisTmpbZvDC/Zd3L457L/dy8B2voYLD9TQqGwaI3YXWI9FgjKxxQVcNw2T\naO0YWY+xni1xedsH/ZQ9vfFXxtPZmITKwlK+3tigMW6HbCcXthpA8OxlaqCoq9D7\nMQbATI25AgMBAAECggEACnfZOgwq0ht0NYhYeDL8rNZMH39pM2f/sjAdKTzTB9Lh\nQz+gXKzGATXfNG3QtMjXUI+1TIY8DTPSdcN7VaZES1pMsJIKZFulJIo31nZIjIDz\nJXu1F4SVu+H+aLa8Snt4CdMgFiqXL9epSbOSotiiM5ZaG2SUxzvMEGP8L4FQDkDV\nV3p6KD5JIkg3VbwSAq+YW6KEMjY78Vnp0AWHEu/uZNkBsNgysgUAQSy0Gm1jT8+z\nhd3QupvgffMWDajsJ3ztZT5WsZodxGeDT9M17rL5GpOFc1CHBc2Amxlt3hYl+KLW\nrXU9st5OtuXzHCplpEiSW0ioAh4Al750vdA7jnXuBQKBgQD7AAcY3D0x6OX4QQUl\n7BYD2KFWE3DqjdF5FR3zVQZyMwV2hLu0DmhWl5hybyZCN+5fttOEqBesHvFrsjRu\nhKhacr/fwsJwdUUmCusgT1IpSlHmu1UN5jzNbp+uJ4N4DMighvoftntR8iVGJ0tP\nHXS2KembPp7JpjzDYIN68xzuPwKBgQDukTeuGkZ4AQzzOWWqfbKM4MIyY37HAsBO\nbXP1Tj4+zKhPrm/I9pBl5AioYzcbswsVuW329oLt99byYCrr9LMYymc004hajUf9\naV+ItnIp9LqDCcMwmvFbfHVfmQA7sufd9FynSKDVvXBFKzDVTLgKHTl6oW1s5V1K\n2mWBcQ92BwKBgCRhVaYBzhDc2/BGpFNhy7MVBBVwze4BTjpJmES7ryqAQKt0A6zO\nZcsfP+ZeO+JfLvrKig/xOTUmawGcG8NlEO3DMhJhrUMVjEc+T+Qn+xWnAwX5YxOX\nqnpwLU7VxVVyLOYvijNshKVU/pgTe/PkphT9MDHjOqqpoKcE5ym78RaLAoGALpZR\nJ0CeTkT2QHEO93JAcd5aTfi8AyT4ZNhe8qJq6VyR6a2IytfLbvpO7oMhedlG6uEh\nJj8RZmMlqIM7HoTUjJzJ9rjwQa6hRk1TiKEIPkU6PuijI1S+mTz+tsJsFzxipydX\nCJvYPKUXzYoXqS+oKOF4Hgh0E/XeeAWaGOL5P/UCgYB0L2+xtWNz8hRoXeTmfCIg\nhKaotHA52DIjt0z3oEVDVmt6dpHd9zKDFgBMtH1BfEPAznDduczMpCNpR2LjNUx3\nx7M3b8fxCL9R/qNecZ6Nn5k66NOuUA+PS0zdmay0UV6bZ7HRM2bHqQPVfbb4q2E8\nuchRhfqV57NnhKAStQGyGw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "tradersco@flowing-vision-400922.iam.gserviceaccount.com",
+  "client_id": "104472318860535329336",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tradersco%40flowing-vision-400922.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

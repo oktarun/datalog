@@ -4,26 +4,118 @@
             type = "image/x-icon">  -->
 
     <nav>
-        <h1><a href="/">NFIGHRBHU</a></h1>
+        <div class="menu-toggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <h1><a href="/">Shubham Traders Co</a></h1>
         <!-- <ul>
             <li><a href="/authors"><Main>Authors</Main></a></li>
             <li><a href="/authors/new"><Main>Add Author</Main></a></li>
         </ul> -->
-        <ul id="">
+        <!-- <ul id="">
 
-        </ul>
+        </ul> -->
         <ul id="users">
-            <a class="list" href="#"><img id="img" class="list" alt=""> <span id="user"></span></a>
+            <a class="list" href="#">
+                <!-- <img id="img" class="list" alt="">  -->
+                <span id="user"></span></a>
             <li id="log" class="list"></li>
         </ul>
     </nav>
-    
+
+    <div id="message">
+
+    </div>
+
 </header>
+
+
+
 <style>
-    * {
+    /* * {
         background-color: black;
         color: white;
+    } */
+
+    /* message */
+    #message {
+        /* display: none; */
+        position: absolute;
+
+        min-width: 50%;
+        width: fit-content;
+        left: 20%;
+        right: 20%;
+        
+        align-self: center;
+        
+        
+        height: fit-content;
+
+        text-align: center;
+        font-size: 30px;
+
+        border-radius: 30px;
+
     }
+
+    .good {
+        background-color: rgb(162, 205, 93);
+        color: rgb(255, 255, 255);
+        
+    }
+
+    .bad {
+        background-color: rgb(255, 0, 0);
+        color: rgb(0, 0, 0);
+    }
+
+
+    .animation-div {
+        display: none;
+ 
+
+
+
+   
+        animation: slideAndFade 8s ease;
+        /* Forward the animation to its end state */
+
+    }
+
+    @keyframes slideAndFade {
+        0% {
+            display: block;
+            top: 50%;
+            opacity: 0;
+        }
+        
+        5% {
+            
+            opacity: 1;
+        }
+        
+        50% {
+            top: 7%
+        }
+        
+        90% {
+            display: block;
+            opacity: 1
+        }
+        
+        100% {
+            top: 7%;
+            display: none;
+            opacity: 0
+        }
+    }
+
+    /* end message */
+
+
 
     a {
         display: flex;
@@ -32,7 +124,7 @@
     nav {
         display: flex;
         flex-direction: row;
-        background-color: rgb(0, 0, 0);
+        background-color: rgb(255, 110, 110);
         padding: 0 10px;
         justify-content: space-evenly;
         align-items: center;
@@ -56,19 +148,22 @@
         flex: 1;
         text-align: center;
         /* pointer-events: none; */
+        margin-left: 15px;
+        font-size: 15px;
+        width: fit-content;
     }
 
     ul {
-        flex: 2;
+        flex: 1;
         display: flex;
         justify-content: end;
 
     }
 
     .list {
-        margin: 0 10%;
+        margin: 0 5%;
         list-style-type: none;
-        font-size: 20px;
+        font-size: 10px;
         display: flex;
     }
 
@@ -85,24 +180,30 @@
     }
 
 
+
+
     .nodisplay {
         display: none;
     }
 </style>
 
-<!-- <script>
+<script>
 
 
 
-    fetch("/user")
+    fetch("/user/me")
 
         // Converting received data to JSON
         .then(response => response.json())
         .then(json => {
+
             if (json.status === 200) {
 
+                console.log(json)
+                user = json.payload
 
-                document.getElementById("user").innerHTML = json.name;
+
+                document.getElementById("user").innerHTML = user.name;
                 // console.log(json.data)
 
 
@@ -111,7 +212,20 @@
                 a.setAttribute("href", "/user/logout");
                 a.innerHTML = "LogOut"
                 document.getElementById("log").append(a)
-                document.getElementById("img").setAttribute("src", json.data)
+                // document.getElementById("img").setAttribute("src", json.data)
+
+
+
+
+                if (json.payload.userLevel === "admin") {
+
+                    // setTimeout(activateFooter(true), 50000);
+                    activateFooter();
+                    if (document.querySelector(".itemlast")) {
+
+                        document.querySelector(".itemlast").style.display = "block"
+                    };
+                }
 
 
 
@@ -129,8 +243,45 @@
 
 
 
-
-
-
         });
-</script> -->
+
+
+
+
+
+        
+        function message(state, msg) {
+            
+            const messageBox = document.getElementById("message");
+            messageBox.innerHTML = msg;
+            if(state === 200){
+                messageBox.classList.add("good");
+                messageBox.classList.remove("bad");
+
+        }
+        
+        if(state === 400){
+            messageBox.classList.add("bad");
+            messageBox.classList.remove("good");
+
+        }
+        
+
+        // Remove the animation class to reset the animation
+        messageBox.classList.remove("animation-div");
+
+        // Trigger a reflow by accessing the offsetHeight property
+        messageBox.offsetHeight;
+
+        // Add the animation class to start the animation
+        messageBox.classList.add("animation-div");
+
+
+
+       
+    
+
+    }
+
+
+</script>
